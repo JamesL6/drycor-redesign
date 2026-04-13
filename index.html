@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <style>
 /* ─── DESIGN TOKENS ─────────────────────────────── */
 :root {
@@ -1057,17 +1058,14 @@ ul { list-style: none; }
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  height: 400px;
+  height: 440px;
   margin-bottom: 44px;
   box-shadow: var(--shadow-md);
   border: 2px solid var(--border);
 }
-.areas-map {
+#service-map {
   width: 100%;
   height: 100%;
-  border: none;
-  display: block;
-  filter: saturate(.85) brightness(.97);
 }
 .areas-map-badge {
   position: absolute;
@@ -1081,15 +1079,75 @@ ul { list-style: none; }
   font-weight: 800;
   letter-spacing: .1em;
   text-transform: uppercase;
-  padding: 7px 18px;
+  padding: 8px 20px;
   border-radius: 30px;
   box-shadow: var(--shadow-md);
   white-space: nowrap;
   pointer-events: none;
+  z-index: 750;
 }
-.areas-map-badge span {
-  color: var(--teal);
+.areas-map-badge span { color: var(--teal); }
+
+/* Leaflet county legend */
+.map-legend {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 750;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  pointer-events: none;
 }
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--ff-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.legend-swatch {
+  width: 16px; height: 16px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+/* Custom Leaflet marker */
+.drycor-marker-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.drycor-marker-dot {
+  width: 14px; height: 14px;
+  background: var(--red);
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(228,0,43,.35), 0 2px 8px rgba(0,0,0,.3);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+/* Leaflet tooltip override */
+.county-label {
+  background: var(--blue-deeper) !important;
+  border: none !important;
+  border-radius: 6px !important;
+  color: var(--white) !important;
+  font-family: var(--ff-head) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+  padding: 6px 12px !important;
+  box-shadow: var(--shadow-md) !important;
+}
+.county-label::before { display: none !important; }
 
 /* County tabs */
 .county-tabs {
@@ -1498,7 +1556,8 @@ ul { list-style: none; }
   .reviews__header { flex-direction: column; align-items: flex-start; }
   .county-tabs { overflow-x: auto; }
   .county-cities-grid { grid-template-columns: repeat(2, 1fr); }
-  .areas-map-wrap { height: 300px; }
+  .areas-map-wrap { height: 320px; }
+  .map-legend { display: none; }
 }
 
 @media (max-width: 480px) {
@@ -2142,14 +2201,28 @@ ul { list-style: none; }
       <p class="section-body" style="margin-top:12px">Staging crews across Hillsborough, Pasco, and Polk Counties — on-site within 60 minutes for most properties.</p>
     </div>
 
-    <!-- Map with radius overlay -->
+    <!-- Map with county outlines -->
     <div class="areas-map-wrap">
-      <iframe class="areas-map"
-        src="https://maps.google.com/maps?q=Tampa+Bay+Area+Florida&t=&z=9&ie=UTF8&iwloc=&output=embed"
-        allowfullscreen loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-      <div class="areas-map-badge">⚡ <span>60-Minute</span> Response Radius — Hillsborough · Pasco · Polk</div>
+      <div id="service-map"></div>
+      <div class="areas-map-badge">⚡ <span>60-Min Response</span> — Hillsborough · Pasco · Polk Counties</div>
+      <div class="map-legend">
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:#006393;opacity:.7"></div>
+          Hillsborough County
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:#2a7fa8;opacity:.7"></div>
+          Pasco County
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:#68ccd1;opacity:.9"></div>
+          Polk County
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:#E4002B;border-radius:50%"></div>
+          DRYCOR HQ
+        </div>
+      </div>
     </div>
 
     <!-- County tabs -->
@@ -2733,6 +2806,98 @@ window.addEventListener('scroll', () => {
     header.style.boxShadow = '0 2px 16px rgba(0,0,0,.10)';
   }
 });
+</script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+(function initServiceMap() {
+  const mapEl = document.getElementById('service-map');
+  if (!mapEl || typeof L === 'undefined') return;
+
+  const map = L.map('service-map', {
+    center: [27.95, -82.2],
+    zoom: 9,
+    scrollWheelZoom: false,
+    zoomControl: true,
+    attributionControl: true
+  });
+
+  // CartoDB Positron — clean light basemap, no visual clutter
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors &copy; <a href="https://carto.com">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  // County styles keyed by name (TIGER returns base name without "County")
+  const countyStyles = {
+    'Hillsborough': { color: '#004d73', fill: '#006393' },
+    'Pasco':        { color: '#1c6080', fill: '#2a7fa8' },
+    'Polk':         { color: '#3da0a6', fill: '#68ccd1' }
+  };
+
+  // Fetch real county boundaries from US Census TIGER Web Services (free, no key)
+  const where = encodeURIComponent("GEOID IN ('12057','12101','12105')");
+  const tigerUrl =
+    'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1/query'
+    + '?where=' + where
+    + '&outFields=NAME,GEOID'
+    + '&f=geojson';
+
+  fetch(tigerUrl)
+    .then(r => r.json())
+    .then(data => {
+      if (!data.features || !data.features.length) return;
+
+      const geoLayer = L.geoJSON(data, {
+        style: feature => {
+          const s = countyStyles[feature.properties.NAME] || countyStyles['Hillsborough'];
+          return {
+            fillColor:   s.fill,
+            fillOpacity: 0.20,
+            color:       s.color,
+            weight:      2.5,
+            opacity:     0.9
+          };
+        },
+        onEachFeature: (feature, layer) => {
+          layer.bindTooltip(
+            '<strong>' + feature.properties.NAME + ' County</strong>',
+            { direction: 'center', permanent: false, className: 'county-label', sticky: true }
+          );
+          layer.on({
+            mouseover: e => e.target.setStyle({ fillOpacity: 0.38, weight: 3.5 }),
+            mouseout:  e => geoLayer.resetStyle(e.target)
+          });
+        }
+      }).addTo(map);
+
+      // Fit view to all three counties
+      map.fitBounds(geoLayer.getBounds(), { padding: [28, 28] });
+    })
+    .catch(() => {
+      // Silent fallback — map still shows basemap if TIGER API unavailable
+    });
+
+  // DRYCOR HQ pulsing marker (Thonotosassa, FL)
+  const hqIcon = L.divIcon({
+    className: '',
+    html: '<div class="drycor-marker-wrap"><div class="drycor-marker-dot"></div></div>',
+    iconSize:   [20, 20],
+    iconAnchor: [10, 10]
+  });
+
+  L.marker([28.068, -82.256], { icon: hqIcon })
+    .bindPopup(
+      '<div style="font-family:Montserrat,sans-serif;padding:4px 2px">'
+      + '<div style="font-size:13px;font-weight:800;color:#006393;text-transform:uppercase;letter-spacing:.05em">DRYCOR RESTORE HQ</div>'
+      + '<div style="font-size:12px;color:#5a6e84;margin-top:3px">Thonotosassa, FL 33592</div>'
+      + '<a href="tel:8663956625" style="display:block;margin-top:8px;font-size:13px;font-weight:700;color:#E4002B;font-family:Montserrat,sans-serif">(866) 395-6625</a>'
+      + '</div>',
+      { maxWidth: 200 }
+    )
+    .addTo(map);
+})();
 </script>
 
 </body>
