@@ -576,42 +576,7 @@ ul { list-style: none; }
 .service-card:hover .service-card__link { color: var(--red); gap: 8px; }
 .service-card__link::after { content: '→'; }
 
-/* Extra services row */
-.services__more {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 18px;
-}
-.service-mini {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 20px 18px;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  transition: border-color .2s, box-shadow .2s;
-}
-.service-mini:hover {
-  border-color: var(--blue);
-  box-shadow: var(--shadow-sm);
-}
-.service-mini__icon {
-  font-size: 24px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.service-mini__name {
-  font-family: var(--ff-head);
-  font-size: 13px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-.service-mini__desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+/* Services grid is now a single 3-col grid for all 6 cards */
 
 /* ─── 7. PROCESS ────────────────────────────────── */
 .process {
@@ -894,26 +859,14 @@ ul { list-style: none; }
 .certs__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.certs__label {
-  font-family: var(--ff-head);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.45);
-  white-space: nowrap;
-}
-.certs__badges {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
   justify-content: center;
-  flex: 1;
+  gap: 12px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
 }
+.certs__inner::-webkit-scrollbar { display: none; }
 .cert-badge {
   display: flex;
   flex-direction: column;
@@ -1095,121 +1048,155 @@ ul { list-style: none; }
 .service-areas__header {
   text-align: center;
   max-width: 620px;
-  margin: 0 auto 52px;
+  margin: 0 auto 48px;
 }
 .service-areas__header .section-title { font-size: clamp(26px, 3.5vw, 38px); margin-bottom: 14px; }
-.service-areas__county-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  margin-bottom: 36px;
-}
-.county-block {
-  background: var(--bg);
-  border-radius: var(--radius-lg);
-  padding: 28px 28px 26px;
-  border: 1.5px solid var(--border);
-}
-.county-block__name {
-  font-family: var(--ff-head);
-  font-size: 13px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  color: var(--blue);
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.county-block__name::before {
-  content: '';
-  width: 28px; height: 3px;
-  background: var(--teal);
-  border-radius: 2px;
-  flex-shrink: 0;
-}
-.county-block__cities {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-.city-tag {
-  display: inline-block;
-  padding: 5px 12px;
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text);
-  transition: all .18s;
-  cursor: default;
-}
-.city-tag:hover {
-  background: var(--blue);
-  color: var(--white);
-  border-color: var(--blue);
-}
 
-/* SEO expanded dropdown */
-.seo-toggle-wrap {
-  text-align: center;
-  margin-top: 10px;
+/* Map */
+.areas-map-wrap {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 400px;
+  margin-bottom: 44px;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--border);
 }
-.seo-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--ff-head);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--blue);
-  border: 1.5px solid var(--blue);
-  border-radius: 30px;
-  padding: 10px 22px;
-  background: transparent;
-  cursor: pointer;
-  transition: all .2s;
+.areas-map {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  filter: saturate(.85) brightness(.97);
 }
-.seo-toggle-btn:hover {
+.areas-map-badge {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   background: var(--blue);
   color: var(--white);
-}
-.seo-toggle-btn .arrow { transition: transform .3s; }
-.seo-toggle-btn.open .arrow { transform: rotate(180deg); }
-.seo-expanded { display: none; margin-top: 28px; }
-.seo-expanded.visible { display: block; }
-.seo-expanded__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  background: var(--bg);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  border: 1.5px solid var(--border);
-}
-.seo-col__heading {
   font-family: var(--ff-head);
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: .12em;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--teal);
+  padding: 7px 18px;
+  border-radius: 30px;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+  pointer-events: none;
 }
-.seo-col a {
-  display: block;
-  font-size: 12px;
+.areas-map-badge span {
+  color: var(--teal);
+}
+
+/* County tabs */
+.county-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0;
+}
+.county-tab {
+  font-family: var(--ff-head);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
   color: var(--muted);
-  padding: 4px 0;
-  transition: color .15s, padding-left .15s;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 12px 22px;
+  cursor: pointer;
+  margin-bottom: -2px;
+  transition: color .2s, border-color .2s;
+  white-space: nowrap;
 }
-.seo-col a:hover { color: var(--blue); padding-left: 4px; }
+.county-tab:hover { color: var(--blue); }
+.county-tab.active {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
+}
+
+/* County panels */
+.county-panel { display: none; }
+.county-panel.active { display: block; }
+.county-cities-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* City accordion item */
+.city-item {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.city-item[open] {
+  border-color: var(--blue);
+}
+.city-summary {
+  list-style: none;
+  padding: 12px 16px;
+  font-family: var(--ff-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--bg);
+  user-select: none;
+  transition: background .2s, color .2s;
+}
+.city-summary::-webkit-details-marker { display: none; }
+.city-item[open] .city-summary {
+  background: var(--blue);
+  color: var(--white);
+}
+.city-summary::after {
+  content: '▾';
+  font-size: 11px;
+  transition: transform .25s;
+  flex-shrink: 0;
+}
+.city-item[open] .city-summary::after { transform: rotate(180deg); }
+.city-pages {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+}
+.city-pages a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  border-bottom: 1px solid var(--bg);
+  transition: background .15s, color .15s, padding-left .15s;
+}
+.city-pages a:last-child { border-bottom: none; }
+.city-pages a:hover {
+  background: var(--teal-light);
+  color: var(--blue-dark);
+  padding-left: 20px;
+}
+.city-pages a::before {
+  content: '→';
+  font-size: 11px;
+  color: var(--teal);
+  flex-shrink: 0;
+}
 
 /* ─── 14. FAQ ────────────────────────────────────── */
 .faq {
@@ -1482,10 +1469,9 @@ ul { list-style: none; }
   .hero__content { grid-template-columns: 1fr; gap: 40px; }
   .hero__form-card { max-width: 560px; }
   .services__grid { grid-template-columns: repeat(2, 1fr); }
-  .services__more { grid-template-columns: repeat(2, 1fr); }
   .insurance__grid { grid-template-columns: repeat(4, 1fr); }
   .footer__grid { grid-template-columns: 1fr 1fr; gap: 36px; }
-  .seo-expanded__grid { grid-template-columns: repeat(2, 1fr); }
+  .county-cities-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -1501,18 +1487,18 @@ ul { list-style: none; }
   .why__grid { grid-template-columns: 1fr; }
   .why__right { grid-template-columns: repeat(2, 1fr); }
   .reviews__grid { grid-template-columns: 1fr; }
-  .service-areas__county-grid { grid-template-columns: 1fr; }
   .faq__grid { grid-template-columns: 1fr; }
   .faq__sticky { position: static; }
   .final-cta__phone-num { font-size: 30px; }
   .footer__grid { grid-template-columns: 1fr; }
   .services__grid { grid-template-columns: 1fr; }
-  .services__more { grid-template-columns: 1fr; }
   .insurance__grid { grid-template-columns: repeat(3, 1fr); }
-  .trust-strip__inner { justify-content: center; flex-direction: column; text-align: center; }
+  .trust-strip__inner { justify-content: center; }
   .midcta__inner { flex-direction: column; text-align: center; }
   .reviews__header { flex-direction: column; align-items: flex-start; }
-  .seo-expanded__grid { grid-template-columns: 1fr 1fr; }
+  .county-tabs { overflow-x: auto; }
+  .county-cities-grid { grid-template-columns: repeat(2, 1fr); }
+  .areas-map-wrap { height: 300px; }
 }
 
 @media (max-width: 480px) {
@@ -1520,6 +1506,7 @@ ul { list-style: none; }
   .final-cta__actions { flex-direction: column; align-items: center; }
   .insurance__grid { grid-template-columns: repeat(2, 1fr); }
   .why__right { grid-template-columns: 1fr; }
+  .county-cities-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -1694,8 +1681,7 @@ ul { list-style: none; }
 ═══════════════════════════════════════════════════════ -->
 <div class="trust-strip">
   <div class="container trust-strip__inner">
-    <span class="trust-strip__label">Trusted &amp; Verified By</span>
-    <div class="trust-strip__badges">
+    <div class="trust-strip__badges" style="margin:0 auto;justify-content:center">
       <div class="trust-badge">
         <span class="badge-icon">🏅</span>
         <div>
@@ -1791,35 +1777,45 @@ ul { list-style: none; }
       </div>
     </div>
 
-    <div class="services__more">
-      <div class="service-mini">
-        <div class="service-mini__icon">🏢</div>
-        <div>
-          <div class="service-mini__name">Commercial &amp; Large-Loss</div>
-          <div class="service-mini__desc">Hotels, warehouses, multifamily — full-scale response for complex commercial losses.</div>
+    <!-- Row 2: Full-card services -->
+    <div class="services__grid" style="margin-top:24px">
+
+      <div class="service-card">
+        <div class="service-card__img">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/engineers-preparing-to-work-on-wind-turbine-2025-04-04-21-11-53-utc-1920w.jpg" alt="Commercial Large-Loss Restoration" loading="lazy">
+        </div>
+        <div class="service-card__body">
+          <div class="service-card__icon">🏢</div>
+          <div class="service-card__title">Commercial &amp; Large-Loss</div>
+          <p class="service-card__desc">Hotels, warehouses, multifamily, and industrial facilities. We scale fast with the crew capacity, equipment fleet, and TPA relationships to handle any size loss.</p>
+          <a href="/commercial-restoration" class="service-card__link">Learn More</a>
         </div>
       </div>
-      <div class="service-mini">
-        <div class="service-mini__icon">🌀</div>
-        <div>
-          <div class="service-mini__name">Storm &amp; Catastrophe</div>
-          <div class="service-mini__desc">Hurricane response, roof tarping, flood recovery, and catastrophic loss stabilization.</div>
+
+      <div class="service-card">
+        <div class="service-card__img">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/DRYCOR+SVG+%28Disaster+Team+On-Site%29+1-1920w.webp" alt="Storm and Catastrophe Response" loading="lazy">
+        </div>
+        <div class="service-card__body">
+          <div class="service-card__icon">🌀</div>
+          <div class="service-card__title">Storm &amp; Catastrophe</div>
+          <p class="service-card__desc">Hurricane response, emergency roof tarping, flood recovery, and large-scale catastrophic loss stabilization — mobilized within hours of the event.</p>
+          <a href="/storm-damage" class="service-card__link">Learn More</a>
         </div>
       </div>
-      <div class="service-mini">
-        <div class="service-mini__icon">🔨</div>
-        <div>
-          <div class="service-mini__name">Reconstruction &amp; Build-Back</div>
-          <div class="service-mini__desc">Full structural repairs and complete property reconstruction — one vendor, zero handoffs.</div>
+
+      <div class="service-card">
+        <div class="service-card__img">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/Powers+Kitchen+1+After-1920w.jpg" alt="Reconstruction and Build-Back" loading="lazy">
+        </div>
+        <div class="service-card__body">
+          <div class="service-card__icon">🔨</div>
+          <div class="service-card__title">Reconstruction &amp; Build-Back</div>
+          <p class="service-card__desc">Full structural repairs, drywall, flooring, cabinetry, and complete property rebuild — all performed in-house. One vendor from emergency through final walkthrough.</p>
+          <a href="/reconstruction" class="service-card__link">Learn More</a>
         </div>
       </div>
-      <div class="service-mini">
-        <div class="service-mini__icon">📦</div>
-        <div>
-          <div class="service-mini__name">Contents &amp; Asset Protection</div>
-          <div class="service-mini__desc">Inventory, pack-out, cleaning, storage, and return of salvageable personal property.</div>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -2028,8 +2024,7 @@ ul { list-style: none; }
 ═══════════════════════════════════════════════════════ -->
 <div class="certs">
   <div class="container certs__inner">
-    <span class="certs__label">Certified &amp; Accredited</span>
-    <div class="certs__badges">
+    <div class="certs__badges" style="display:contents">
       <div class="cert-badge">
         <span class="cert-badge__name">IICRC</span>
         <span class="cert-badge__full">Restoration Certified</span>
@@ -2144,112 +2139,358 @@ ul { list-style: none; }
     <div class="service-areas__header">
       <span class="section-label">Service Areas</span>
       <h2 class="section-title">Serving the Greater Tampa Bay Area</h2>
-      <p class="section-body" style="margin-top:12px">Staging locations across Hillsborough, Pasco, and Polk Counties allow us to reach most properties within 60 minutes.</p>
+      <p class="section-body" style="margin-top:12px">Staging crews across Hillsborough, Pasco, and Polk Counties — on-site within 60 minutes for most properties.</p>
     </div>
 
-    <div class="service-areas__county-grid">
-      <div class="county-block">
-        <div class="county-block__name">Hillsborough County</div>
-        <div class="county-block__cities">
-          <span class="city-tag">Tampa</span>
-          <span class="city-tag">Brandon</span>
-          <span class="city-tag">Riverview</span>
-          <span class="city-tag">Thonotosassa</span>
-          <span class="city-tag">Temple Terrace</span>
-          <span class="city-tag">Plant City</span>
-          <span class="city-tag">Valrico</span>
-          <span class="city-tag">Sun City Center</span>
-          <span class="city-tag">Seffner</span>
-          <span class="city-tag">Lithia</span>
-        </div>
-      </div>
-      <div class="county-block">
-        <div class="county-block__name">Pasco County</div>
-        <div class="county-block__cities">
-          <span class="city-tag">Wesley Chapel</span>
-          <span class="city-tag">Zephyrhills</span>
-          <span class="city-tag">New Port Richey</span>
-          <span class="city-tag">Land O' Lakes</span>
-          <span class="city-tag">Lutz</span>
-          <span class="city-tag">Dade City</span>
-          <span class="city-tag">Holiday</span>
-          <span class="city-tag">Trinity</span>
-          <span class="city-tag">Odessa</span>
-          <span class="city-tag">Port Richey</span>
-        </div>
-      </div>
-      <div class="county-block">
-        <div class="county-block__name">Polk County</div>
-        <div class="county-block__cities">
-          <span class="city-tag">Lakeland</span>
-          <span class="city-tag">Winter Haven</span>
-          <span class="city-tag">Auburndale</span>
-          <span class="city-tag">Bartow</span>
-          <span class="city-tag">Haines City</span>
-          <span class="city-tag">Davenport</span>
-          <span class="city-tag">Dundee</span>
-          <span class="city-tag">Lake Wales</span>
-          <span class="city-tag">Mulberry</span>
-          <span class="city-tag">Polk City</span>
-        </div>
+    <!-- Map with radius overlay -->
+    <div class="areas-map-wrap">
+      <iframe class="areas-map"
+        src="https://maps.google.com/maps?q=Tampa+Bay+Area+Florida&t=&z=9&ie=UTF8&iwloc=&output=embed"
+        allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <div class="areas-map-badge">⚡ <span>60-Minute</span> Response Radius — Hillsborough · Pasco · Polk</div>
+    </div>
+
+    <!-- County tabs -->
+    <div class="county-tabs">
+      <button class="county-tab active" onclick="switchCounty('hillsborough', this)">Hillsborough County</button>
+      <button class="county-tab" onclick="switchCounty('pasco', this)">Pasco County</button>
+      <button class="county-tab" onclick="switchCounty('polk', this)">Polk County</button>
+    </div>
+
+    <!-- ── HILLSBOROUGH ── -->
+    <div class="county-panel active" id="county-hillsborough">
+      <div class="county-cities-grid">
+
+        <details class="city-item">
+          <summary class="city-summary">Tampa</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/tampa/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/tampa/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/tampa/">Mold Remediation</a>
+            <a href="/storm-damage/tampa/">Storm Damage</a>
+            <a href="/commercial-restoration/tampa/">Commercial Restoration</a>
+            <a href="/reconstruction/tampa/">Reconstruction</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Brandon</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/brandon/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/brandon/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/brandon/">Mold Remediation</a>
+            <a href="/storm-damage/brandon/">Storm Damage</a>
+            <a href="/commercial-restoration/brandon/">Commercial Restoration</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Riverview</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/riverview/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/riverview/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/riverview/">Mold Remediation</a>
+            <a href="/storm-damage/riverview/">Storm Damage</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Thonotosassa</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/thonotosassa/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/thonotosassa/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/thonotosassa/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Temple Terrace</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/temple-terrace/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/temple-terrace/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/temple-terrace/">Mold Remediation</a>
+            <a href="/storm-damage/temple-terrace/">Storm Damage</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Plant City</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/plant-city/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/plant-city/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/plant-city/">Mold Remediation</a>
+            <a href="/storm-damage/plant-city/">Storm Damage</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Valrico</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/valrico/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/valrico/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/valrico/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Sun City Center</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/sun-city-center/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/sun-city-center/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/sun-city-center/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Seffner</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/seffner/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/seffner/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/seffner/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Lithia</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/lithia/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/lithia/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/lithia/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Gibsonton</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/gibsonton/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/gibsonton/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/gibsonton/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Apollo Beach</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/apollo-beach/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/apollo-beach/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/apollo-beach/">Mold Remediation</a>
+            <a href="/storm-damage/apollo-beach/">Storm Damage</a>
+          </div>
+        </details>
+
       </div>
     </div>
 
-    <div class="seo-toggle-wrap">
-      <button class="seo-toggle-btn" id="areaToggleBtn" onclick="toggleAreas()">
-        View All Service Pages by City
-        <span class="arrow">▾</span>
-      </button>
-    </div>
+    <!-- ── PASCO ── -->
+    <div class="county-panel" id="county-pasco">
+      <div class="county-cities-grid">
 
-    <div class="seo-expanded" id="areaExpanded">
-      <div class="seo-expanded__grid">
-        <div class="seo-col">
-          <div class="seo-col__heading">Water Damage</div>
-          <a href="/water-damage-restoration/tampa/">Tampa</a>
-          <a href="/water-damage-restoration/brandon/">Brandon</a>
-          <a href="/water-damage-restoration/riverview/">Riverview</a>
-          <a href="/water-damage-restoration/wesley-chapel/">Wesley Chapel</a>
-          <a href="/water-damage-restoration/lakeland/">Lakeland</a>
-          <a href="/water-damage-restoration/land-o-lakes/">Land O' Lakes</a>
-          <a href="/water-damage-restoration/plant-city/">Plant City</a>
-          <a href="/water-damage-restoration/lutz/">Lutz</a>
-        </div>
-        <div class="seo-col">
-          <div class="seo-col__heading">Fire Damage</div>
-          <a href="/fire-damage-restoration/tampa/">Tampa</a>
-          <a href="/fire-damage-restoration/brandon/">Brandon</a>
-          <a href="/fire-damage-restoration/riverview/">Riverview</a>
-          <a href="/fire-damage-restoration/wesley-chapel/">Wesley Chapel</a>
-          <a href="/fire-damage-restoration/lakeland/">Lakeland</a>
-          <a href="/fire-damage-restoration/temple-terrace/">Temple Terrace</a>
-          <a href="/fire-damage-restoration/plant-city/">Plant City</a>
-          <a href="/fire-damage-restoration/new-port-richey/">New Port Richey</a>
-        </div>
-        <div class="seo-col">
-          <div class="seo-col__heading">Mold Remediation</div>
-          <a href="/mold-remediation/tampa/">Tampa</a>
-          <a href="/mold-remediation/brandon/">Brandon</a>
-          <a href="/mold-remediation/riverview/">Riverview</a>
-          <a href="/mold-remediation/wesley-chapel/">Wesley Chapel</a>
-          <a href="/mold-remediation/lakeland/">Lakeland</a>
-          <a href="/mold-remediation/lutz/">Lutz</a>
-          <a href="/mold-remediation/zephyrhills/">Zephyrhills</a>
-          <a href="/mold-remediation/haines-city/">Haines City</a>
-        </div>
-        <div class="seo-col">
-          <div class="seo-col__heading">Storm &amp; Commercial</div>
-          <a href="/storm-damage/tampa/">Tampa Storm</a>
-          <a href="/storm-damage/brandon/">Brandon Storm</a>
-          <a href="/commercial-restoration/tampa/">Tampa Commercial</a>
-          <a href="/commercial-restoration/lakeland/">Lakeland Commercial</a>
-          <a href="/storm-damage/lakeland/">Lakeland Storm</a>
-          <a href="/commercial-restoration/wesley-chapel/">Wesley Chapel Commercial</a>
-          <a href="/storm-damage/wesley-chapel/">Wesley Chapel Storm</a>
-          <a href="/commercial-restoration/new-port-richey/">New Port Richey Commercial</a>
-        </div>
+        <details class="city-item">
+          <summary class="city-summary">Wesley Chapel</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/wesley-chapel/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/wesley-chapel/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/wesley-chapel/">Mold Remediation</a>
+            <a href="/storm-damage/wesley-chapel/">Storm Damage</a>
+            <a href="/commercial-restoration/wesley-chapel/">Commercial Restoration</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Zephyrhills</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/zephyrhills/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/zephyrhills/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/zephyrhills/">Mold Remediation</a>
+            <a href="/storm-damage/zephyrhills/">Storm Damage</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">New Port Richey</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/new-port-richey/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/new-port-richey/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/new-port-richey/">Mold Remediation</a>
+            <a href="/storm-damage/new-port-richey/">Storm Damage</a>
+            <a href="/commercial-restoration/new-port-richey/">Commercial Restoration</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Land O' Lakes</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/land-o-lakes/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/land-o-lakes/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/land-o-lakes/">Mold Remediation</a>
+            <a href="/storm-damage/land-o-lakes/">Storm Damage</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Lutz</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/lutz/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/lutz/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/lutz/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Dade City</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/dade-city/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/dade-city/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/dade-city/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Holiday</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/holiday/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/holiday/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/holiday/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Trinity</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/trinity/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/trinity/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/trinity/">Mold Remediation</a>
+            <a href="/storm-damage/trinity/">Storm Damage</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Odessa</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/odessa/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/odessa/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/odessa/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Port Richey</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/port-richey/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/port-richey/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/port-richey/">Mold Remediation</a>
+          </div>
+        </details>
+
       </div>
     </div>
+
+    <!-- ── POLK ── -->
+    <div class="county-panel" id="county-polk">
+      <div class="county-cities-grid">
+
+        <details class="city-item">
+          <summary class="city-summary">Lakeland</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/lakeland/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/lakeland/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/lakeland/">Mold Remediation</a>
+            <a href="/storm-damage/lakeland/">Storm Damage</a>
+            <a href="/commercial-restoration/lakeland/">Commercial Restoration</a>
+            <a href="/reconstruction/lakeland/">Reconstruction</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Winter Haven</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/winter-haven/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/winter-haven/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/winter-haven/">Mold Remediation</a>
+            <a href="/storm-damage/winter-haven/">Storm Damage</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Auburndale</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/auburndale/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/auburndale/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/auburndale/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Bartow</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/bartow/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/bartow/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/bartow/">Mold Remediation</a>
+            <a href="/storm-damage/bartow/">Storm Damage</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Haines City</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/haines-city/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/haines-city/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/haines-city/">Mold Remediation</a>
+            <a href="/storm-damage/haines-city/">Storm Damage</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Davenport</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/davenport/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/davenport/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/davenport/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Dundee</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/dundee/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/dundee/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/dundee/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Lake Wales</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/lake-wales/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/lake-wales/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/lake-wales/">Mold Remediation</a>
+            <a href="/storm-damage/lake-wales/">Storm Damage</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Mulberry</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/mulberry/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/mulberry/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/mulberry/">Mold Remediation</a>
+          </div>
+        </details>
+
+        <details class="city-item">
+          <summary class="city-summary">Polk City</summary>
+          <div class="city-pages">
+            <a href="/water-damage-restoration/polk-city/">Water Damage Restoration</a>
+            <a href="/fire-damage-restoration/polk-city/">Fire &amp; Smoke Damage</a>
+            <a href="/mold-remediation/polk-city/">Mold Remediation</a>
+          </div>
+        </details>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -2476,16 +2717,11 @@ function toggleFaq(btn) {
   if (!isOpen) item.classList.add('open');
 }
 
-function toggleAreas() {
-  const panel = document.getElementById('areaExpanded');
-  const btn   = document.getElementById('areaToggleBtn');
-  const open  = panel.classList.toggle('visible');
-  btn.classList.toggle('open', open);
-  if (open) {
-    btn.querySelector('.arrow').textContent = '▴';
-  } else {
-    btn.querySelector('.arrow').textContent = '▾';
-  }
+function switchCounty(id, btn) {
+  document.querySelectorAll('.county-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.county-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('county-' + id).classList.add('active');
+  btn.classList.add('active');
 }
 
 // Smooth header shadow on scroll
