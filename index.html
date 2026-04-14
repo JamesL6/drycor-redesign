@@ -410,23 +410,25 @@ ul { list-style: none; }
   max-width: 520px;
 }
 .hero__trust-pills {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
   margin-bottom: 36px;
+  max-width: 480px;
 }
 .hero__pill {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   background: rgba(255,255,255,.10);
   border: 1px solid rgba(255,255,255,.2);
-  border-radius: 40px;
-  padding: 6px 14px;
+  border-radius: 10px;
+  padding: 10px 14px;
   font-size: 12px;
   font-weight: 600;
   color: rgba(255,255,255,.9);
   letter-spacing: .03em;
+  line-height: 1.3;
 }
 .hero__pill svg { flex-shrink: 0; }
 .hero__ctas {
@@ -582,8 +584,8 @@ ul { list-style: none; }
 .services__header .section-title { font-size: clamp(28px, 3.5vw, 40px); margin-bottom: 14px; }
 .services__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
 }
 .service-card {
   background: var(--white);
@@ -653,16 +655,12 @@ ul { list-style: none; }
 .service-card:hover .service-card__link { color: var(--red); gap: 8px; }
 .service-card__link::after { content: '→'; }
 
-/* Row 3: 4-col compact service cards */
-.services__more-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-.services__more-grid .service-card__img { height: 160px; }
-.services__more-grid .service-card__body { padding: 20px 22px 24px; }
-.services__more-grid .service-card__title { font-size: 14px; }
-.services__more-grid .service-card__desc { font-size: 13px; }
+/* Unified service card sizing */
+.services__grid .service-card__img { height: 180px; }
+.services__grid .service-card__body { padding: 20px 22px 24px; }
+.services__grid .service-card__icon { width: 38px; height: 38px; font-size: 18px; margin-bottom: 10px; }
+.services__grid .service-card__title { font-size: 14px; margin-bottom: 8px; }
+.services__grid .service-card__desc { font-size: 13px; margin-bottom: 14px; }
 
 /* ─── 7. PROCESS ────────────────────────────────── */
 .process {
@@ -1767,7 +1765,6 @@ ul { list-style: none; }
   .hero__content { grid-template-columns: 1fr; gap: 40px; }
   .hero__form-card { max-width: 560px; }
   .services__grid { grid-template-columns: repeat(2, 1fr); }
-  .services__more-grid { grid-template-columns: repeat(2, 1fr); }
   .insurance__grid { grid-template-columns: repeat(4, 1fr); }
   .footer__grid { grid-template-columns: 1fr 1fr; gap: 36px; }
   .county-cities-grid { grid-template-columns: repeat(3, 1fr); }
@@ -1792,7 +1789,6 @@ ul { list-style: none; }
   .final-cta__phone-num { font-size: 30px; }
   .footer__grid { grid-template-columns: 1fr; }
   .services__grid { grid-template-columns: 1fr; }
-  .services__more-grid { grid-template-columns: 1fr; }
   .insurance__grid { grid-template-columns: repeat(3, 1fr); }
   .trust-strip__inner { justify-content: center; }
   .midcta__inner { flex-direction: column; text-align: center; }
@@ -2074,133 +2070,129 @@ ul { list-style: none; }
       <p class="section-body" style="margin-top:14px">From emergency stabilization through complete reconstruction — one partner, every phase.</p>
     </div>
 
-    <!-- Row 1 -->
+    <!-- All 10 core services — unified 4-col grid -->
     <div class="services__grid">
+
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/Powers+Kitchen+1+After-1920w.jpg" alt="Turnkey Restoration and Reconstruction" loading="lazy">
+          <img src="images/services/turnkey-restoration.jpg" alt="Turnkey Restoration and Reconstruction" loading="lazy">
         </div>
         <div class="service-card__body">
           <div class="service-card__icon">🔄</div>
           <div class="service-card__title">Turnkey Restoration &amp; Reconstruction</div>
-          <p class="service-card__desc">End-to-end loss recovery with integrated construction services — from initial mitigation through full rebuild. One vendor, zero handoffs.</p>
+          <p class="service-card__desc">End-to-end loss recovery from initial mitigation through full rebuild — one vendor, zero handoffs.</p>
           <a href="/turnkey-restoration" class="service-card__link">Learn More</a>
         </div>
       </div>
 
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/engineers-preparing-to-work-on-wind-turbine-2025-04-04-21-11-53-utc-1920w.jpg" alt="Large-Loss and Catastrophic Recovery" loading="lazy">
+          <img src="images/services/large-loss.jpg" alt="Large-Loss and Catastrophic Recovery" loading="lazy">
         </div>
         <div class="service-card__body">
           <div class="service-card__icon">🏗️</div>
           <div class="service-card__title">Large-Loss &amp; Catastrophic Recovery</div>
-          <p class="service-card__desc">Scalable response teams and structured oversight for complex, large-scale loss events — commercial, multifamily, industrial, and beyond.</p>
+          <p class="service-card__desc">Scalable response teams and structured oversight for complex, large-scale loss events.</p>
           <a href="https://www.drycor.com/xl" class="service-card__link">Learn More</a>
         </div>
       </div>
 
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/JORDAN+Damage+After-1920w.jpg" alt="Commercial and Residential Reconstruction" loading="lazy">
+          <img src="images/services/reconstruction.jpg" alt="Commercial and Residential Reconstruction" loading="lazy">
         </div>
         <div class="service-card__body">
           <div class="service-card__icon">🏠</div>
           <div class="service-card__title">Commercial &amp; Residential Reconstruction</div>
-          <p class="service-card__desc">Full structural repair and property rebuild for both residential homes and commercial facilities — restored to pre-loss condition.</p>
+          <p class="service-card__desc">Full structural repair and property rebuild for homes and commercial facilities — restored to pre-loss condition.</p>
           <a href="/reconstruction" class="service-card__link">Learn More</a>
         </div>
       </div>
-    </div>
 
-    <!-- Row 2 -->
-    <div class="services__grid" style="margin-top:24px">
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/an-engineer-in-safety-gear-inspects-a-drain-pipe-r-2025-09-08-10-50-58-utc+1-1920w.webp" alt="Building Consulting and Loss Coordination" loading="lazy">
+          <img src="images/services/building-consulting.jpg" alt="Building Consulting and Loss Coordination" loading="lazy">
         </div>
         <div class="service-card__body">
           <div class="service-card__icon">📋</div>
           <div class="service-card__title">Building Consulting &amp; Loss Coordination</div>
-          <p class="service-card__desc">Independent technical guidance and structured project management — aligning property owners, contractors, and project teams from assessment through closeout.</p>
+          <p class="service-card__desc">Independent technical guidance and project management from assessment through final closeout.</p>
           <a href="/loss-coordination" class="service-card__link">Learn More</a>
         </div>
       </div>
 
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/Flood+Water+Extraction-5cc0a6d9-1920w.jpg" alt="Emergency Mitigation and Stabilization" loading="lazy">
+          <img src="images/services/emergency-mitigation.jpg" alt="Emergency Mitigation and Stabilization" loading="lazy">
         </div>
         <div class="service-card__body">
           <div class="service-card__icon">⚡</div>
           <div class="service-card__title">Emergency Mitigation &amp; Stabilization</div>
-          <p class="service-card__desc">Rapid-response extraction, structural drying, and containment — deployed immediately to stop further damage and stabilize the property.</p>
+          <p class="service-card__desc">Rapid extraction, structural drying, and containment — deployed immediately to stop further damage.</p>
           <a href="/emergency-services" class="service-card__link">Learn More</a>
         </div>
       </div>
 
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/DRYCOR+SVG+%28Disaster+Team+On-Site%29+1-1920w.webp" alt="Large-Scale Dehumidification and Climate Control" loading="lazy">
+          <img src="images/services/dehumidification.jpg" alt="Large-Scale Dehumidification and Climate Control" loading="lazy">
         </div>
         <div class="service-card__body">
           <div class="service-card__icon">💨</div>
           <div class="service-card__title">Large-Scale Dehumidification &amp; Climate Control</div>
-          <p class="service-card__desc">Industrial desiccant dehumidifiers, air movers, and climate systems deployed at scale — engineered drying for structures of any size.</p>
+          <p class="service-card__desc">Industrial desiccant dehumidifiers and air systems engineered for structures of any size.</p>
           <a href="/dehumidification" class="service-card__link">Learn More</a>
         </div>
       </div>
-    </div>
 
-    <!-- Row 3: compact 4-col -->
-    <div class="services__more-grid" style="margin-top:24px">
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/Carbonell+Kitchen+3+Before-1920w.jpg" alt="Construction and Build-Back" loading="lazy">
+          <img src="images/services/build-back.jpg" alt="Construction and Build-Back" loading="lazy">
         </div>
         <div class="service-card__body">
           <div class="service-card__icon">🔨</div>
           <div class="service-card__title">Construction &amp; Build-Back</div>
-          <p class="service-card__desc">Complete structural reconstruction following any loss event — drywall, flooring, roofing, and finish work.</p>
+          <p class="service-card__desc">Complete reconstruction — drywall, flooring, cabinetry, roofing, and finish work following any loss event.</p>
           <a href="/construction-build-back" class="service-card__link">Learn More</a>
         </div>
       </div>
 
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/KARA+Damage+Image+%283%29-1920w.jpg" alt="Emergency Stabilization and Temporary Repairs" loading="lazy">
+          <img src="images/services/emergency-stabilization.jpg" alt="Emergency Stabilization and Temporary Repairs" loading="lazy">
         </div>
         <div class="service-card__body">
           <div class="service-card__icon">🛡️</div>
           <div class="service-card__title">Emergency Stabilization &amp; Temporary Repairs</div>
-          <p class="service-card__desc">Board-up, roof tarping, shoring, and immediate protective measures to secure a property from further damage after a loss event.</p>
+          <p class="service-card__desc">Board-up, roof tarping, and shoring — immediate protective measures to secure a property after a loss event.</p>
           <a href="/emergency-stabilization" class="service-card__link">Learn More</a>
         </div>
       </div>
 
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/picture-768940715-1920w.jpg" alt="Contents and Asset Protection Services" loading="lazy">
+          <img src="images/services/contents.jpg" alt="Contents and Asset Protection Services" loading="lazy">
         </div>
         <div class="service-card__body">
           <div class="service-card__icon">📦</div>
           <div class="service-card__title">Contents &amp; Asset Protection Services</div>
-          <p class="service-card__desc">Inventory, pack-out, cleaning, secure storage, and return of salvageable contents — protecting personal and business property throughout the restoration process.</p>
+          <p class="service-card__desc">Inventory, pack-out, cleaning, secure storage, and return of salvageable contents and personal property.</p>
           <a href="/contents-restoration" class="service-card__link">Learn More</a>
         </div>
       </div>
 
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/scientist-wear-chemical-protection-suit-check-dang-2025-03-13-16-57-06-utc-1920w.JPG" alt="Environmental and Mold Services" loading="lazy">
+          <img src="images/services/mold.jpg" alt="Environmental and Mold Services" loading="lazy">
         </div>
         <div class="service-card__body">
           <div class="service-card__icon">🌿</div>
           <div class="service-card__title">Environmental &amp; Mold Services</div>
-          <p class="service-card__desc">IICRC-certified mold inspection, containment, HEPA air filtration, and complete remediation — restoring safe, healthy indoor environments.</p>
+          <p class="service-card__desc">IICRC-certified mold inspection, containment, HEPA air filtration, and complete remediation.</p>
           <a href="/mold-remediation" class="service-card__link">Learn More</a>
         </div>
       </div>
+
     </div>
 
   </div>
