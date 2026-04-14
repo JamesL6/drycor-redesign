@@ -183,17 +183,20 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
 }
 .header__logo img {
   height: 62px;
   width: auto;
-  flex-shrink: 0;
+  min-width: 0;
   display: block;
 }
 .header__nav {
   display: flex;
   align-items: center;
   gap: 4px;
+  flex: 1;
+  justify-content: center;
 }
 .nav-item {
   position: relative;
