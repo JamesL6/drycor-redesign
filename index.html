@@ -1900,60 +1900,325 @@ ul { list-style: none; }
   text-decoration: none;
 }
 
+/* ─── MOBILE NAV ─────────────────────────────────── */
+.header__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.header__hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform .25s, opacity .25s;
+}
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0,0,0,.55);
+}
+.mobile-nav-overlay.open { display: block; }
+.mobile-nav-panel {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 305px;
+  max-width: 88vw;
+  background: var(--blue-deeper);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform .3s ease;
+}
+.mobile-nav-overlay.open .mobile-nav-panel { transform: translateX(0); }
+.mobile-nav__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  flex-shrink: 0;
+}
+.mobile-nav__close {
+  background: rgba(255,255,255,.1);
+  border: none;
+  color: var(--white);
+  font-size: 16px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.mobile-nav__links {
+  flex: 1;
+  padding: 6px 0;
+  overflow-y: auto;
+}
+.mobile-nav__direct {
+  display: block;
+  padding: 14px 20px;
+  font-family: var(--ff-head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--white);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: background .15s, padding-left .15s;
+}
+.mobile-nav__direct:hover { background: rgba(255,255,255,.07); padding-left: 26px; }
+.mobile-nav__group-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 20px;
+  font-family: var(--ff-head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  cursor: pointer;
+  text-align: left;
+}
+.mobile-nav__group-arrow { font-size: 10px; transition: transform .25s; flex-shrink: 0; }
+.mobile-nav__group.open .mobile-nav__group-arrow { transform: rotate(180deg); }
+.mobile-nav__group-body {
+  display: none;
+  background: rgba(0,0,0,.18);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  padding: 5px 0;
+}
+.mobile-nav__group.open .mobile-nav__group-body { display: block; }
+.mobile-nav__group-body a {
+  display: block;
+  padding: 10px 20px 10px 30px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,.72);
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  transition: background .15s, color .15s;
+}
+.mobile-nav__group-body a:last-child { border-bottom: none; }
+.mobile-nav__group-body a:hover { background: rgba(255,255,255,.07); color: var(--white); }
+.mobile-nav__subhead {
+  font-family: var(--ff-head);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  padding: 11px 20px 4px 20px;
+}
+.mobile-nav__xl-tag {
+  font-size: 9px;
+  background: var(--teal);
+  color: var(--blue-deeper);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-family: var(--ff-head);
+  letter-spacing: .03em;
+}
+.mobile-nav__cta {
+  padding: 16px 20px 22px;
+  border-top: 1px solid rgba(255,255,255,.1);
+  flex-shrink: 0;
+}
+
 /* ─── RESPONSIVE ─────────────────────────────────── */
 @media (max-width: 1100px) {
-  .hero__content { grid-template-columns: 1fr; gap: 40px; }
-  .hero__form-card { max-width: 560px; }
+  .hero__content { grid-template-columns: 1fr; gap: 36px; }
   .services__grid { grid-template-columns: repeat(2, 1fr); }
   .insurance__grid { grid-template-columns: repeat(4, 1fr); }
   .footer__grid { grid-template-columns: 1fr 1fr; gap: 36px; }
   .county-cities-grid { grid-template-columns: repeat(3, 1fr); }
+  .process__steps { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+  .process__steps::before { display: none; }
 }
 
 @media (max-width: 768px) {
   body { padding-bottom: 70px; }
   .mobile-call-bar { display: block; }
+
+  /* Header */
   .header__nav, .header__phone { display: none; }
-  .header__right .btn-blue { display: none; }
+  .header__right .btn-red, .header__right .btn-blue { display: none; }
+  .header__hamburger { display: flex; }
+  .header__inner { padding: 12px 16px; gap: 12px; }
+  .header__logo img { height: 48px; }
+
+  /* Emergency bar */
+  .emergency-bar { font-size: 11px; padding: 9px 14px; line-height: 1.5; }
+
+  /* Hero */
+  .hero { min-height: auto; }
+  .hero__content { grid-template-columns: 1fr; gap: 24px; padding: 44px 0 32px; }
+  .hero__sub { font-size: 15px; margin-bottom: 22px; }
+  .hero__trust-pills { max-width: 100%; gap: 8px; margin-bottom: 22px; }
+  .hero__pill { font-size: 11px; padding: 10px 12px; }
+  .hero__ctas { flex-direction: column; gap: 10px; }
+  .hero__img-panel { min-height: 230px; }
+
+  /* Section padding */
+  .services { padding: 56px 0 48px; }
+  .process { padding: 56px 0; }
+  .commercial { padding: 56px 0; }
+  .midcta { padding: 40px 0; }
+  .why { padding: 56px 0 48px; }
+  .insurance { padding: 52px 0 44px; }
+  .certs { padding: 26px 0; }
+  .reviews { padding: 56px 0 48px; }
+  .service-areas { padding: 56px 0 48px; }
+  .faq { padding: 56px 0 48px; }
+  .final-cta { padding: 60px 0; }
+  .footer { padding: 52px 0 0; }
+
+  /* Stats bar */
+  .stats-bar { padding: 20px 0; }
   .stats-bar__grid { grid-template-columns: repeat(2, 1fr); }
-  .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); padding: 14px 16px; }
   .stat-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.1); }
-  .process__steps { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+  .stat-item:last-child { border-bottom: none; }
+  .stat-num { font-size: 24px; }
+  .stat-label { font-size: 10px; }
+
+  /* Trust strip */
+  .trust-strip { padding: 18px 0; }
+  .trust-strip__inner { flex-direction: column; gap: 10px; }
+  .trust-strip__badges { justify-content: center; gap: 8px; flex-wrap: wrap; }
+  .trust-badge { font-size: 12px; padding: 7px 13px; }
+
+  /* Services */
+  .services__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .services__grid .service-card__img { height: 140px; }
+  .services__grid .service-card__body { padding: 14px 14px 16px; }
+  .services__grid .service-card__title { font-size: 13px; }
+  .services__grid .service-card__desc { font-size: 12px; }
+
+  /* Process */
+  .process__steps { grid-template-columns: repeat(2, 1fr); gap: 28px; }
   .process__steps::before { display: none; }
+  .process-step__num { width: 58px; height: 58px; font-size: 20px; }
+  .process-step { padding: 0 12px; }
+
+  /* Commercial */
+  .commercial__grid { grid-template-columns: 1fr; gap: 32px; }
+  .commercial::after { display: none; }
+  .commercial__title { font-size: clamp(24px, 5vw, 36px); }
+
+  /* Mid CTA */
+  .midcta__inner { flex-direction: column; text-align: center; gap: 20px; }
+  .midcta__phone { font-size: 28px; justify-content: center; }
+
+  /* Why */
   .why__stats { grid-template-columns: repeat(2, 1fr); }
-  .why__cards { grid-template-columns: repeat(2, 1fr); }
-  .commercial__grid { grid-template-columns: 1fr; gap: 40px; }
+  .why-stat { padding: 22px 12px; }
+  .why-stat__num { font-size: 28px; }
+  .why__cards { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+  /* Insurance */
+  .insurance__grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .ins-logo { min-height: 70px; font-size: 12px; padding: 12px 8px; }
+
+  /* Reviews */
   .reviews__grid { grid-template-columns: 1fr; }
-  .faq__grid { grid-template-columns: 1fr; }
-  .faq__sticky { position: static; }
-  .final-cta__phone-num { font-size: 30px; }
-  .footer__grid { grid-template-columns: 1fr; }
-  .services__grid { grid-template-columns: 1fr; }
-  .insurance__grid { grid-template-columns: repeat(3, 1fr); }
-  .trust-strip__inner { justify-content: center; }
-  .midcta__inner { flex-direction: column; text-align: center; }
   .reviews__header { flex-direction: column; align-items: flex-start; }
+  .reviews__big-score { font-size: 56px; }
+
+  /* Service areas */
+  .area-scope-tabs { width: 100%; }
+  .area-scope-tab { flex: 1; justify-content: center; }
   .county-tabs { overflow-x: auto; }
   .county-cities-grid { grid-template-columns: repeat(2, 1fr); }
-  .areas-map-wrap { height: 320px; }
-  .us-map-wrap { height: 300px; }
-  .nationwide-stats { grid-template-columns: repeat(2, 1fr); }
-  .area-scope-tabs { width: 100%; justify-content: center; }
+  .areas-map-wrap { height: 300px; }
+  .us-map-wrap { height: 280px; }
+  .nationwide-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .commercial-cta-strip { flex-direction: column; }
   .map-legend { display: none; }
+
+  /* FAQ */
+  .faq__grid { grid-template-columns: 1fr; }
+  .faq__sticky { position: static; }
+  .faq-item__q { font-size: 14px; padding: 16px 18px; }
+
+  /* Final CTA */
+  .final-cta__phone-num { font-size: 28px; gap: 8px; }
+  .final-cta__actions { flex-direction: column; align-items: center; }
+
+  /* Footer */
+  .footer__grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer__bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .footer__bottom-links { flex-wrap: wrap; gap: 12px; }
 }
 
 @media (max-width: 480px) {
-  .hero__ctas { flex-direction: column; }
+  .container, .container-wide { padding: 0 16px; }
+
+  /* Hero */
+  .hero__content { padding: 36px 0 24px; }
+  .hero__pill { font-size: 10px; padding: 8px 10px; min-height: 42px; }
   .call-desktop { display: none; }
   .call-mobile { display: block; }
-  .hero__img-panel { min-height: 280px; }
-  .final-cta__actions { flex-direction: column; align-items: center; }
+  .hero__img-panel { min-height: 200px; }
+  .btn-lg { font-size: 15px; padding: 15px 24px; }
+
+  /* Services — 1 col on very small screens */
+  .services__grid { grid-template-columns: 1fr; }
+  .services__grid .service-card__img { height: 180px; }
+
+  /* Process */
+  .process__steps { grid-template-columns: 1fr; gap: 24px; }
+  .process-step { flex-direction: row; text-align: left; align-items: flex-start; gap: 16px; }
+  .process-step__num { flex-shrink: 0; width: 52px; height: 52px; margin-bottom: 0; }
+
+  /* Insurance */
   .insurance__grid { grid-template-columns: repeat(2, 1fr); }
+  .ins-logo { min-height: 64px; font-size: 11px; }
+
+  /* Why */
   .why__stats { grid-template-columns: repeat(2, 1fr); }
   .why__cards { grid-template-columns: 1fr; }
+
+  /* Service areas */
   .county-cities-grid { grid-template-columns: 1fr; }
-  .commercial__pills { gap: 6px; }
+  .nationwide-stats { grid-template-columns: repeat(2, 1fr); }
+
+  /* Commercial pills */
+  .comm-pill { font-size: 11px; padding: 6px 11px; }
+
+  /* Certifications */
+  .certs__inner { gap: 8px; }
+
+  /* Final CTA */
+  .final-cta__phone-num { font-size: 22px; }
+  .final-cta .section-title { font-size: clamp(24px, 6vw, 36px); }
+
+  /* Mid CTA */
+  .midcta__phone { font-size: 24px; }
 }
 </style>
 </head>
@@ -2031,7 +2296,6 @@ ul { list-style: none; }
           <div class="nav-mega-col">
             <div class="nav-mega-heading">More Services</div>
             <a href="/storm-damage">Storm &amp; Catastrophe</a>
-            <a href="/reconstruction">Reconstruction &amp; Build-Back</a>
             <a href="/contents-restoration">Contents Restoration</a>
             <a href="/emergency-services">Emergency Services</a>
             <a href="/emergency-stabilization">Emergency Stabilization</a>
@@ -2078,6 +2342,9 @@ ul { list-style: none; }
     </nav>
 
     <div class="header__right">
+      <button class="header__hamburger" id="nav-toggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
       <div class="header__phone">
         <span>Available 24/7</span>
         <a href="tel:8663956625">(866) 395-6625</a>
@@ -2088,6 +2355,90 @@ ul { list-style: none; }
     </div>
   </div>
 </header>
+
+<!-- ═══════════════════════════════════════════════════════
+  MOBILE NAV OVERLAY
+═══════════════════════════════════════════════════════ -->
+<div class="mobile-nav-overlay" id="mobile-nav-overlay">
+  <div class="mobile-nav-panel">
+    <div class="mobile-nav__top">
+      <img src="images/logo-full-transparent.png" alt="DRYCOR RESTORE" style="height:44px;filter:brightness(0) invert(1)">
+      <button class="mobile-nav__close" id="nav-close" aria-label="Close menu">✕</button>
+    </div>
+    <nav class="mobile-nav__links">
+
+      <a href="/" class="mobile-nav__direct">Home</a>
+
+      <div class="mobile-nav__group">
+        <button class="mobile-nav__group-btn">About Us <span class="mobile-nav__group-arrow">▾</span></button>
+        <div class="mobile-nav__group-body">
+          <div class="mobile-nav__subhead">Company</div>
+          <a href="/about">About Us</a>
+          <a href="/reviews">Reviews</a>
+          <a href="/blog">Blog &amp; Resources</a>
+          <a href="/careers">Careers</a>
+          <div class="mobile-nav__subhead">Partnerships</div>
+          <a href="/become-a-partner">Become a Partner</a>
+          <a href="/partners/property-manager">Property Managers</a>
+          <a href="/partners/insurance-carrier">Insurance Carriers</a>
+          <a href="/partners/plumber">Plumbers</a>
+          <a href="/partners/hvac">HVAC Contractors</a>
+          <a href="/partners/tree-removal">Tree Removal</a>
+        </div>
+      </div>
+
+      <div class="mobile-nav__group">
+        <button class="mobile-nav__group-btn">Residential Services <span class="mobile-nav__group-arrow">▾</span></button>
+        <div class="mobile-nav__group-body">
+          <div class="mobile-nav__subhead">Water Damage</div>
+          <a href="/water-damage-restoration">Water Damage Overview</a>
+          <a href="/water-damage-restoration/water-extraction">Water Extraction</a>
+          <a href="/water-damage-restoration/water-mitigation">Water Mitigation</a>
+          <a href="/water-damage-restoration/dehumidification">Dehumidification</a>
+          <a href="/water-damage-restoration/flood-damage-restoration">Flood Damage</a>
+          <a href="/water-damage-restoration/leak-detection">Leak Detection</a>
+          <a href="/water-damage-restoration/thermal-imaging">Thermal Imaging</a>
+          <div class="mobile-nav__subhead">Fire &amp; Smoke</div>
+          <a href="/fire-damage-restoration">Fire Damage Overview</a>
+          <a href="/fire-damage-restoration/fire-damage-and-smoke-cleanup">Smoke &amp; Soot Cleanup</a>
+          <div class="mobile-nav__subhead">Mold</div>
+          <a href="/mold-remediation">Mold Remediation Overview</a>
+          <a href="/mold-remediation134fd0c2/mold-inspection">Mold Inspection</a>
+          <a href="/mold-remediation134fd0c2/mold-removal">Mold Removal</a>
+          <div class="mobile-nav__subhead">More Services</div>
+          <a href="/storm-damage">Storm &amp; Catastrophe</a>
+          <a href="/contents-restoration">Contents Restoration</a>
+          <a href="/emergency-services">Emergency Services</a>
+          <a href="/emergency-stabilization">Emergency Stabilization</a>
+          <a href="/loss-coordination">Building Consulting</a>
+          <a href="/dehumidification">Large-Scale Drying</a>
+        </div>
+      </div>
+
+      <div class="mobile-nav__group">
+        <button class="mobile-nav__group-btn">Commercial Services <span class="mobile-nav__xl-tag">XL</span> <span class="mobile-nav__group-arrow">▾</span></button>
+        <div class="mobile-nav__group-body">
+          <div class="mobile-nav__subhead">DRYCORXL</div>
+          <a href="https://www.drycorxl.com" target="_blank">DRYCORXL Home</a>
+          <a href="https://www.drycorxl.com/about" target="_blank">About DRYCORXL</a>
+          <a href="https://www.drycorxl.com/restoration" target="_blank">All Services</a>
+          <div class="mobile-nav__subhead">Primary Services</div>
+          <a href="https://www.drycorxl.com/water-and-flood-damage" target="_blank">Water &amp; Flood Damage</a>
+          <a href="https://www.drycorxl.com/fire-and-smoke-damage" target="_blank">Fire &amp; Smoke Damage</a>
+          <a href="https://www.drycorxl.com/environmental-and-mold-damage" target="_blank">Environmental &amp; Mold</a>
+        </div>
+      </div>
+
+      <a href="/contact" class="mobile-nav__direct">Contact Us</a>
+
+    </nav>
+    <div class="mobile-nav__cta">
+      <a href="tel:8663956625" class="btn btn-red" style="width:100%;justify-content:center;font-size:15px">
+        📞 &nbsp;(866) 395-6625
+      </a>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════
   3. HERO
@@ -2272,17 +2623,6 @@ ul { list-style: none; }
         </div>
       </div>
 
-      <div class="service-card">
-        <div class="service-card__img">
-          <img src="images/services/reconstruction.jpg" alt="Commercial and Residential Reconstruction" loading="lazy">
-        </div>
-        <div class="service-card__body">
-          <div class="service-card__icon">🏠</div>
-          <div class="service-card__title">Commercial &amp; Residential Reconstruction</div>
-          <p class="service-card__desc">Full structural repair and property rebuild for homes and commercial facilities — restored to pre-loss condition.</p>
-          <a href="/reconstruction" class="service-card__link">Learn More</a>
-        </div>
-      </div>
 
       <div class="service-card">
         <div class="service-card__img">
@@ -2320,17 +2660,6 @@ ul { list-style: none; }
         </div>
       </div>
 
-      <div class="service-card">
-        <div class="service-card__img">
-          <img src="images/services/build-back.jpg" alt="Construction and Build-Back" loading="lazy">
-        </div>
-        <div class="service-card__body">
-          <div class="service-card__icon">🔨</div>
-          <div class="service-card__title">Construction &amp; Build-Back</div>
-          <p class="service-card__desc">Complete reconstruction — drywall, flooring, cabinetry, roofing, and finish work following any loss event.</p>
-          <a href="/construction-build-back" class="service-card__link">Learn More</a>
-        </div>
-      </div>
 
       <div class="service-card">
         <div class="service-card__img">
@@ -3340,7 +3669,6 @@ ul { list-style: none; }
           <li><a href="/mold-remediation">Mold Remediation</a></li>
           <li><a href="/storm-damage">Storm &amp; Catastrophe</a></li>
           <li><a href="/commercial-restoration">Commercial Large-Loss</a></li>
-          <li><a href="/reconstruction">Reconstruction &amp; Build-Back</a></li>
           <li><a href="/contents-restoration">Contents Restoration</a></li>
         </ul>
       </div>
@@ -3485,6 +3813,23 @@ function initUSMap() {
     .bindPopup('<div style="font-family:Montserrat,sans-serif;padding:4px 2px"><div style="font-size:13px;font-weight:800;color:#006393;text-transform:uppercase;letter-spacing:.05em">DRYCORXL HQ</div><div style="font-size:12px;color:#5a6e84;margin-top:3px">Thonotosassa, FL — Nationwide Operations</div><a href="https://www.drycorxl.com" target="_blank" style="display:block;margin-top:8px;font-size:13px;font-weight:700;color:#E4002B;font-family:Montserrat,sans-serif">Visit DRYCORXL →</a></div>', { maxWidth: 220 })
     .addTo(map);
 }
+
+// Mobile nav
+(function() {
+  var toggle  = document.getElementById('nav-toggle');
+  var close   = document.getElementById('nav-close');
+  var overlay = document.getElementById('mobile-nav-overlay');
+  function openNav()  { overlay.classList.add('open');    document.body.style.overflow = 'hidden'; }
+  function closeNav() { overlay.classList.remove('open'); document.body.style.overflow = ''; }
+  toggle.addEventListener('click', openNav);
+  close.addEventListener('click', closeNav);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeNav(); });
+  document.querySelectorAll('.mobile-nav__group-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      btn.closest('.mobile-nav__group').classList.toggle('open');
+    });
+  });
+})();
 
 // Smooth header shadow on scroll
 window.addEventListener('scroll', () => {
