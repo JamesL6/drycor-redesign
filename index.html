@@ -182,32 +182,13 @@ ul { list-style: none; }
 .header__logo {
   display: flex;
   align-items: center;
-  gap: 11px;
   text-decoration: none;
 }
 .header__logo img {
-  height: 46px;
+  height: 62px;
   width: auto;
   mix-blend-mode: multiply;
   flex-shrink: 0;
-}
-.header__logo-text {
-  font-family: var(--ff-head);
-  font-weight: 900;
-  font-size: 17px;
-  letter-spacing: -.01em;
-  color: var(--blue-deeper);
-  line-height: 1.1;
-  text-transform: uppercase;
-}
-.header__logo-text span {
-  display: block;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: .18em;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-top: 1px;
 }
 .header__nav {
   display: flex;
@@ -1665,34 +1646,12 @@ ul { list-style: none; }
   margin-bottom: 50px;
 }
 .footer__brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   margin-bottom: 16px;
 }
 .footer__brand-logo {
-  height: 48px;
+  height: 80px;
   width: auto;
   mix-blend-mode: screen;
-  flex-shrink: 0;
-}
-.footer__brand-name {
-  font-family: var(--ff-head);
-  font-weight: 900;
-  font-size: 18px;
-  letter-spacing: -.01em;
-  color: var(--white);
-  line-height: 1.1;
-  text-transform: uppercase;
-}
-.footer__brand-name span {
-  display: block;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: .18em;
-  color: rgba(255,255,255,.45);
-  text-transform: uppercase;
-  margin-top: 2px;
 }
 .footer__brand-desc {
   font-size: 13px;
@@ -1899,11 +1858,7 @@ ul { list-style: none; }
 <header class="header">
   <div class="header__inner">
     <a class="header__logo" href="/">
-      <img src="images/logo.png" alt="DRYCOR RESTORE">
-      <div class="header__logo-text">
-        DRYCOR RESTORE
-        <span>Disaster Recovery &amp; Construction</span>
-      </div>
+      <img src="images/logo-full.png" alt="DRYCOR RESTORE">
     </a>
 
     <nav class="header__nav">
@@ -2008,7 +1963,7 @@ ul { list-style: none; }
         <span>Available 24/7</span>
         <a href="tel:8663956625">(866) 395-6625</a>
       </div>
-      <a href="/contact" class="btn btn-blue">
+      <a href="/contact" class="btn btn-red">
         Request a Callback
       </a>
     </div>
@@ -3223,11 +3178,7 @@ ul { list-style: none; }
       <!-- Brand col -->
       <div>
         <div class="footer__brand">
-          <img class="footer__brand-logo" src="images/logo.png" alt="DRYCOR RESTORE">
-          <div class="footer__brand-name">
-            DRYCOR RESTORE
-            <span>Disaster Recovery &amp; Construction</span>
-          </div>
+          <img class="footer__brand-logo" src="images/logo-full.png" alt="DRYCOR RESTORE">
         </div>
         <p class="footer__brand-desc">
           Providing residential, commercial, and large-loss restoration services across Florida and select regional markets. Turnkey response from emergency mitigation through full reconstruction.
