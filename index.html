@@ -809,40 +809,54 @@ ul { list-style: none; }
   gap: 12px;
   flex-wrap: wrap;
 }
-/* Property type grid */
-.commercial__props {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.prop-card {
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: var(--radius);
-  padding: 16px 18px;
+/* Property type pills */
+.commercial__pill-group { margin-bottom: 22px; }
+.commercial__pill-group:last-child { margin-bottom: 0; }
+.commercial__pill-label {
+  font-family: var(--ff-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  transition: background .2s, border-color .2s;
+  gap: 8px;
 }
-.prop-card:hover {
-  background: rgba(255,255,255,.11);
-  border-color: rgba(104,204,209,.4);
+.commercial__pill-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(104,204,209,.25);
 }
-.prop-card__icon { font-size: 22px; flex-shrink: 0; }
-.prop-card__name {
+.commercial__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.comm-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 30px;
+  padding: 7px 14px;
   font-family: var(--ff-head);
   font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: rgba(255,255,255,.85);
+  font-weight: 600;
+  color: rgba(255,255,255,.88);
+  letter-spacing: .03em;
+  transition: background .18s, border-color .18s;
+  white-space: nowrap;
 }
-.prop-card__sub {
-  font-size: 11px;
-  color: rgba(255,255,255,.45);
-  margin-top: 1px;
+.comm-pill:hover {
+  background: rgba(255,255,255,.15);
+  border-color: rgba(104,204,209,.5);
+  color: var(--white);
 }
+.comm-pill-icon { font-size: 14px; }
 /* Capabilities list */
 .commercial__caps {
   display: flex;
@@ -1829,7 +1843,7 @@ ul { list-style: none; }
   .why__stats { grid-template-columns: repeat(2, 1fr); }
   .why__cards { grid-template-columns: 1fr; }
   .county-cities-grid { grid-template-columns: 1fr; }
-  .commercial__props { grid-template-columns: 1fr; }
+  .commercial__pills { gap: 6px; }
 }
 </style>
 </head>
@@ -2335,66 +2349,33 @@ ul { list-style: none; }
         </div>
       </div>
 
-      <!-- Right: property type cards -->
+      <!-- Right: property type pills -->
       <div>
-        <div class="commercial__props">
-          <div class="prop-card">
-            <span class="prop-card__icon">🏨</span>
-            <div>
-              <div class="prop-card__name">Hospitality &amp; Hotels</div>
-              <div class="prop-card__sub">Full-floor &amp; multi-room events</div>
-            </div>
-          </div>
-          <div class="prop-card">
-            <span class="prop-card__icon">🏢</span>
-            <div>
-              <div class="prop-card__name">Commercial Office</div>
-              <div class="prop-card__sub">Minimal downtime protocols</div>
-            </div>
-          </div>
-          <div class="prop-card">
-            <span class="prop-card__icon">🏗️</span>
-            <div>
-              <div class="prop-card__name">Multifamily &amp; Apartments</div>
-              <div class="prop-card__sub">High-occupancy loss events</div>
-            </div>
-          </div>
-          <div class="prop-card">
-            <span class="prop-card__icon">🏭</span>
-            <div>
-              <div class="prop-card__name">Industrial &amp; Warehouses</div>
-              <div class="prop-card__sub">Large-footprint recovery</div>
-            </div>
-          </div>
-          <div class="prop-card">
-            <span class="prop-card__icon">🏥</span>
-            <div>
-              <div class="prop-card__name">Healthcare Facilities</div>
-              <div class="prop-card__sub">ICRA-compliant protocols</div>
-            </div>
-          </div>
-          <div class="prop-card">
-            <span class="prop-card__icon">🏫</span>
-            <div>
-              <div class="prop-card__name">Educational &amp; Municipal</div>
-              <div class="prop-card__sub">Government &amp; school contracts</div>
-            </div>
-          </div>
-          <div class="prop-card">
-            <span class="prop-card__icon">🛍️</span>
-            <div>
-              <div class="prop-card__name">Retail &amp; Mixed-Use</div>
-              <div class="prop-card__sub">Tenant-occupied recovery</div>
-            </div>
-          </div>
-          <div class="prop-card">
-            <span class="prop-card__icon">🏦</span>
-            <div>
-              <div class="prop-card__name">Asset Managers &amp; TPAs</div>
-              <div class="prop-card__sub">Portfolio-wide programs</div>
-            </div>
+
+        <div class="commercial__pill-group">
+          <div class="commercial__pill-label">Built for High-Value Assets</div>
+          <div class="commercial__pills">
+            <span class="comm-pill"><span class="comm-pill-icon">🏢</span> Commercial Office Buildings</span>
+            <span class="comm-pill"><span class="comm-pill-icon">🏗️</span> Multifamily &amp; Apartments</span>
+            <span class="comm-pill"><span class="comm-pill-icon">🏨</span> Hospitality &amp; Hotels</span>
+            <span class="comm-pill"><span class="comm-pill-icon">🏥</span> Healthcare Facilities</span>
+            <span class="comm-pill"><span class="comm-pill-icon">🏭</span> Industrial &amp; Manufacturing</span>
+            <span class="comm-pill"><span class="comm-pill-icon">🛍️</span> Retail &amp; Mixed-Use</span>
           </div>
         </div>
+
+        <div class="commercial__pill-group">
+          <div class="commercial__pill-label">Solutions For</div>
+          <div class="commercial__pills">
+            <span class="comm-pill"><span class="comm-pill-icon">🏫</span> Educational Institutions</span>
+            <span class="comm-pill"><span class="comm-pill-icon">🏛️</span> Municipal &amp; Government</span>
+            <span class="comm-pill"><span class="comm-pill-icon">🏠</span> Senior Living Communities</span>
+            <span class="comm-pill"><span class="comm-pill-icon">🔑</span> Property Management Firms</span>
+            <span class="comm-pill"><span class="comm-pill-icon">📋</span> Insurance Carriers &amp; TPAs</span>
+            <span class="comm-pill"><span class="comm-pill-icon">🏦</span> Asset Managers &amp; Investment Groups</span>
+          </div>
+        </div>
+
       </div>
 
     </div>
