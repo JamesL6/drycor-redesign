@@ -545,19 +545,19 @@ ul { list-style: none; }
 .trust-strip__badges {
   display: flex;
   align-items: center;
-  gap: 28px;
-  flex-wrap: wrap;
+  gap: clamp(10px, 1.8vw, 22px);
+  flex-wrap: nowrap;
 }
 .trust-badge {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 18px;
+  padding: 8px clamp(10px, 1.2vw, 16px);
   background: rgba(255,255,255,.12);
   border: 1px solid rgba(255,255,255,.2);
   border-radius: 8px;
   font-family: var(--ff-head);
-  font-size: 13px;
+  font-size: clamp(11px, 1vw, 13px);
   font-weight: 800;
   color: var(--white);
   letter-spacing: .03em;
@@ -2111,7 +2111,7 @@ ul { list-style: none; }
   .trust-strip { padding: 18px 0; }
   .trust-strip__inner { flex-direction: column; gap: 10px; }
   .trust-strip__badges { justify-content: center; gap: 8px; flex-wrap: wrap; }
-  .trust-badge { font-size: 12px; padding: 7px 13px; }
+  .trust-badge { font-size: 12px; padding: 7px 13px; white-space: normal; }
 
   /* Services */
   .services__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
