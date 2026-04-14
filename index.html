@@ -187,8 +187,8 @@ ul { list-style: none; }
 .header__logo img {
   height: 62px;
   width: auto;
-  mix-blend-mode: multiply;
   flex-shrink: 0;
+  display: block;
 }
 .header__nav {
   display: flex;
@@ -1780,7 +1780,7 @@ ul { list-style: none; }
 .footer__brand-logo {
   height: 80px;
   width: auto;
-  mix-blend-mode: screen;
+  filter: brightness(0) invert(1);
 }
 .footer__brand-desc {
   font-size: 13px;
@@ -1991,7 +1991,7 @@ ul { list-style: none; }
 <header class="header">
   <div class="header__inner">
     <a class="header__logo" href="/">
-      <img src="images/logo-full.png" alt="DRYCOR RESTORE">
+      <img src="images/logo-full-transparent.png" alt="DRYCOR RESTORE">
     </a>
 
     <nav class="header__nav">
@@ -3345,7 +3345,7 @@ ul { list-style: none; }
       <!-- Brand col -->
       <div>
         <div class="footer__brand">
-          <img class="footer__brand-logo" src="images/logo-full.png" alt="DRYCOR RESTORE">
+          <img class="footer__brand-logo" src="images/logo-full-transparent.png" alt="DRYCOR RESTORE">
         </div>
         <p class="footer__brand-desc">
           Providing residential, commercial, and large-loss restoration services across Florida and select regional markets. Turnkey response from emergency mitigation through full reconstruction.
