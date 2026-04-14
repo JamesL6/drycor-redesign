@@ -412,23 +412,25 @@ ul { list-style: none; }
 .hero__trust-pills {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 10px;
   margin-bottom: 36px;
-  max-width: 480px;
+  max-width: 460px;
 }
 .hero__pill {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   background: rgba(255,255,255,.10);
   border: 1px solid rgba(255,255,255,.2);
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: 13px 15px;
   font-size: 12px;
   font-weight: 600;
   color: rgba(255,255,255,.9);
   letter-spacing: .03em;
   line-height: 1.3;
+  min-height: 52px;
 }
 .hero__pill svg { flex-shrink: 0; }
 .hero__ctas {
@@ -957,87 +959,102 @@ ul { list-style: none; }
 /* ─── 9. WHY CHOOSE US ──────────────────────────── */
 .why {
   padding: 90px 0;
-  background: var(--white);
+  background: var(--bg);
 }
-.why__grid {
+.why__header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 52px;
+}
+.why__header .section-title { font-size: clamp(26px, 3.5vw, 38px); margin-bottom: 14px; }
+/* Stats strip */
+.why__stats {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: start;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  background: var(--blue-deeper);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 48px;
 }
-.why__left .section-title { font-size: clamp(26px, 3.5vw, 38px); margin-bottom: 16px; }
-.why__left .section-body { margin-bottom: 32px; }
-.why__features {
+.why-stat {
+  padding: 32px 20px;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  align-items: center;
+  gap: 6px;
+  border-right: 1px solid rgba(255,255,255,.08);
+  transition: background .2s;
 }
-.why-feature {
+.why-stat:last-child { border-right: none; }
+.why-stat:hover { background: rgba(255,255,255,.04); }
+.why-stat__icon { font-size: 26px; margin-bottom: 4px; }
+.why-stat__num {
+  font-family: var(--ff-head);
+  font-size: 38px;
+  font-weight: 900;
+  color: var(--teal);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.why-stat__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+}
+.why-stat__sub {
+  font-size: 11px;
+  color: rgba(255,255,255,.35);
+  font-style: italic;
+}
+/* Feature cards grid */
+.why__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.why-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 28px 26px;
+  border: 1.5px solid var(--border);
   display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  padding: 20px 22px;
-  background: var(--bg);
-  border-radius: var(--radius);
-  border-left: 4px solid var(--blue);
-  transition: border-color .2s, box-shadow .2s;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
 }
-.why-feature:hover {
-  border-left-color: var(--red);
-  box-shadow: var(--shadow-sm);
+.why-card:hover {
+  border-color: var(--blue);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
 }
-.why-feature__icon {
-  font-size: 24px;
+.why-card__icon-wrap {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: var(--teal-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
   flex-shrink: 0;
-  margin-top: 2px;
 }
-.why-feature__title {
+.why-card.veteran .why-card__icon-wrap { background: rgba(245,166,35,.12); }
+.why-card__title {
   font-family: var(--ff-head);
   font-size: 14px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: .04em;
   color: var(--text);
-  margin-bottom: 5px;
 }
-.why-feature__desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
-.why__right {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.why-metric {
-  background: var(--blue-deeper);
-  border-radius: var(--radius-lg);
-  padding: 28px 24px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-.why-metric:nth-child(odd) { background: var(--blue); }
-.why-metric__icon { font-size: 30px; margin-bottom: 4px; }
-.why-metric__num {
-  font-family: var(--ff-head);
-  font-size: 36px;
-  font-weight: 900;
-  color: var(--teal);
-  line-height: 1;
-  letter-spacing: -.02em;
-}
-.why-metric__label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.65);
-  text-align: center;
-}
-.why-metric__sub {
-  font-size: 11px;
-  color: rgba(255,255,255,.4);
-  font-style: italic;
+.why-card__desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+  flex: 1;
 }
 
 /* ─── 10. INSURANCE ─────────────────────────────── */
@@ -1780,8 +1797,8 @@ ul { list-style: none; }
   .stat-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.1); }
   .process__steps { grid-template-columns: repeat(2, 1fr); gap: 30px; }
   .process__steps::before { display: none; }
-  .why__grid { grid-template-columns: 1fr; }
-  .why__right { grid-template-columns: repeat(2, 1fr); }
+  .why__stats { grid-template-columns: repeat(2, 1fr); }
+  .why__cards { grid-template-columns: repeat(2, 1fr); }
   .commercial__grid { grid-template-columns: 1fr; gap: 40px; }
   .reviews__grid { grid-template-columns: 1fr; }
   .faq__grid { grid-template-columns: 1fr; }
@@ -1806,7 +1823,8 @@ ul { list-style: none; }
   .hero__img-panel { min-height: 280px; }
   .final-cta__actions { flex-direction: column; align-items: center; }
   .insurance__grid { grid-template-columns: repeat(2, 1fr); }
-  .why__right { grid-template-columns: 1fr; }
+  .why__stats { grid-template-columns: repeat(2, 1fr); }
+  .why__cards { grid-template-columns: 1fr; }
   .county-cities-grid { grid-template-columns: 1fr; }
   .commercial__props { grid-template-columns: 1fr; }
 }
@@ -2401,78 +2419,82 @@ ul { list-style: none; }
 ═══════════════════════════════════════════════════════ -->
 <section class="why">
   <div class="container">
-    <div class="why__grid">
-      <div class="why__left">
-        <span class="section-label">Why DRYCOR</span>
-        <h2 class="section-title">Trusted by Property Owners<br>&amp; Insurance Professionals</h2>
-        <p class="section-body">We've built our reputation by doing what others won't — working directly with insurance adjusters, providing real-time documentation, and standing behind every job we complete.</p>
 
-        <div class="why__features">
-          <div class="why-feature">
-            <span class="why-feature__icon">🏥</span>
-            <div>
-              <div class="why-feature__title">IICRC Certified Technicians</div>
-              <p class="why-feature__desc">All field techs hold active IICRC certifications in Water Damage Restoration (WRT), Applied Structural Drying (ASD), and mold remediation.</p>
-            </div>
-          </div>
-          <div class="why-feature">
-            <span class="why-feature__icon">📋</span>
-            <div>
-              <div class="why-feature__title">Direct Insurance Coordination</div>
-              <p class="why-feature__desc">We work directly with your insurance adjuster, providing complete documentation, moisture readings, and photo evidence to maximize your claim.</p>
-            </div>
-          </div>
-          <div class="why-feature">
-            <span class="why-feature__icon">🔧</span>
-            <div>
-              <div class="why-feature__title">Turnkey — One Vendor, All Phases</div>
-              <p class="why-feature__desc">From emergency response through final reconstruction, our in-house teams handle every phase. No handoffs, no gaps in accountability.</p>
-            </div>
-          </div>
-          <div class="why-feature">
-            <span class="why-feature__icon">🌐</span>
-            <div>
-              <div class="why-feature__title">Commercial &amp; Large-Loss Expertise</div>
-              <p class="why-feature__desc">We're equipped for hotel, warehouse, multifamily, and industrial losses — with the crew size, equipment fleet, and project management to scale fast.</p>
-            </div>
-          </div>
-          <div class="why-feature" style="border-left-color:var(--gold)">
-            <span class="why-feature__icon">🇺🇸</span>
-            <div>
-              <div class="why-feature__title">Disabled Veteran Owned &amp; Operated</div>
-              <p class="why-feature__desc">Founded and led by a disabled veteran. The same discipline, accountability, and commitment to mission that defined our service carries through every job we take on.</p>
-            </div>
-          </div>
-        </div>
+    <div class="why__header">
+      <span class="section-label">Why DRYCOR</span>
+      <h2 class="section-title">Trusted by Property Owners<br>&amp; Contractors Across Tampa Bay</h2>
+      <p class="section-body" style="margin-top:12px">We've built our reputation by doing what others won't — delivering thorough documentation, standing behind every job, and treating every property like it's our own.</p>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="why__stats">
+      <div class="why-stat">
+        <span class="why-stat__icon">⚡</span>
+        <div class="why-stat__num">24/7</div>
+        <div class="why-stat__label">Available</div>
+        <div class="why-stat__sub">live dispatch, every call</div>
       </div>
-
-      <div class="why__right">
-        <div class="why-metric">
-          <span class="why-metric__icon">⚡</span>
-          <div class="why-metric__num">60</div>
-          <div class="why-metric__label">Min Avg. Response</div>
-          <div class="why-metric__sub">tri-county area</div>
-        </div>
-        <div class="why-metric">
-          <span class="why-metric__icon">📞</span>
-          <div class="why-metric__num">24/7</div>
-          <div class="why-metric__label">Live Dispatch</div>
-          <div class="why-metric__sub">real human, every call</div>
-        </div>
-        <div class="why-metric">
-          <span class="why-metric__icon">🏗️</span>
-          <div class="why-metric__num">5K+</div>
-          <div class="why-metric__label">Properties Restored</div>
-          <div class="why-metric__sub">residential &amp; commercial</div>
-        </div>
-        <div class="why-metric">
-          <span class="why-metric__icon">📜</span>
-          <div class="why-metric__num">50+</div>
-          <div class="why-metric__label">Years Combined Exp.</div>
-          <div class="why-metric__sub">senior leadership</div>
-        </div>
+      <div class="why-stat">
+        <span class="why-stat__icon">🏗️</span>
+        <div class="why-stat__num">5,000+</div>
+        <div class="why-stat__label">Properties Restored</div>
+        <div class="why-stat__sub">residential &amp; commercial</div>
+      </div>
+      <div class="why-stat">
+        <span class="why-stat__icon">⭐</span>
+        <div class="why-stat__num">4.9</div>
+        <div class="why-stat__label">Google Rating</div>
+        <div class="why-stat__sub">200+ verified reviews</div>
+      </div>
+      <div class="why-stat">
+        <span class="why-stat__icon">📜</span>
+        <div class="why-stat__num">50+</div>
+        <div class="why-stat__label">Years Combined Exp.</div>
+        <div class="why-stat__sub">senior leadership team</div>
       </div>
     </div>
+
+    <!-- Feature cards grid: 3 + 2 + 1 -->
+    <div class="why__cards">
+
+      <div class="why-card">
+        <div class="why-card__icon-wrap">🏅</div>
+        <div class="why-card__title">IICRC Certified Technicians</div>
+        <p class="why-card__desc">All field techs hold active IICRC certifications in Water Damage Restoration (WRT), Applied Structural Drying (ASD), and mold remediation.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card__icon-wrap">📋</div>
+        <div class="why-card__title">Thorough Documentation</div>
+        <p class="why-card__desc">We provide complete moisture readings, thermal imaging reports, and photo documentation to support your claims process — handled professionally, start to finish.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card__icon-wrap">🔧</div>
+        <div class="why-card__title">Turnkey — One Vendor, All Phases</div>
+        <p class="why-card__desc">From emergency response through final reconstruction, our in-house teams handle every phase. No handoffs, no gaps in accountability.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card__icon-wrap">🌐</div>
+        <div class="why-card__title">Commercial &amp; Large-Loss Expertise</div>
+        <p class="why-card__desc">Equipped for hotels, warehouses, multifamily, and industrial losses — with the crew size, equipment fleet, and project management to scale fast.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card__icon-wrap">📞</div>
+        <div class="why-card__title">Talk to a Live Person</div>
+        <p class="why-card__desc">Every call is answered by a real dispatcher — not a recording, not a chatbot. Reach our team any time and get a clear, direct answer fast.</p>
+      </div>
+
+      <div class="why-card veteran">
+        <div class="why-card__icon-wrap">🇺🇸</div>
+        <div class="why-card__title">Disabled Veteran Owned</div>
+        <p class="why-card__desc">Founded and led by a disabled veteran. The same discipline, accountability, and commitment that defined military service carries through every job we take on.</p>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
