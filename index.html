@@ -2120,11 +2120,46 @@ ul { list-style: none; }
   .services__grid .service-card__title { font-size: 13px; }
   .services__grid .service-card__desc { font-size: 12px; }
 
-  /* Process */
-  .process__steps { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  /* Process — stacked cards on mobile */
+  .process { padding: 56px 0; }
+  .process__header { margin-bottom: 40px; }
+  .process__steps {
+    grid-template-columns: 1fr;
+    gap: 0;
+    position: relative;
+  }
   .process__steps::before { display: none; }
-  .process-step__num { width: 58px; height: 58px; font-size: 20px; }
-  .process-step { padding: 0 12px; }
+  /* Vertical connector line between cards */
+  .process__steps::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 27px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--teal), rgba(104,204,209,.15));
+    z-index: 0;
+  }
+  .process-step {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 18px;
+    padding: 0 0 28px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .process-step:last-child { padding-bottom: 0; }
+  .process-step__num {
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .process-step__title { text-align: left; font-size: 14px; margin-bottom: 6px; }
+  .process-step__desc { text-align: left; }
 
   /* Commercial */
   .commercial__grid { grid-template-columns: 1fr; gap: 32px; }
@@ -2191,10 +2226,9 @@ ul { list-style: none; }
   .services__grid { grid-template-columns: 1fr; }
   .services__grid .service-card__img { height: 180px; }
 
-  /* Process */
-  .process__steps { grid-template-columns: 1fr; gap: 24px; }
-  .process-step { flex-direction: row; text-align: left; align-items: flex-start; gap: 16px; }
-  .process-step__num { flex-shrink: 0; width: 52px; height: 52px; margin-bottom: 0; }
+  /* Process — inherits 768px card layout, just tighten spacing */
+  .process-step { gap: 14px; padding-bottom: 22px; }
+  .process-step__num { width: 50px; height: 50px; font-size: 18px; }
 
   /* Insurance */
   .insurance__grid { grid-template-columns: repeat(2, 1fr); }
