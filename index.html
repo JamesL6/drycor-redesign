@@ -434,73 +434,43 @@ ul { list-style: none; }
   gap: 14px;
   flex-wrap: wrap;
 }
-/* Hero form card */
-.hero__form-card {
-  background: var(--white);
+/* Hero call button — shows number on desktop, tap-to-call on mobile */
+.hero__call-btn { flex-direction: column; gap: 2px; padding: 14px 28px; }
+.call-desktop { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; }
+.call-num { font-size: 20px; font-weight: 900; letter-spacing: -.01em; }
+.call-sub { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; opacity: .82; }
+.call-mobile { display: none; font-size: 15px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+/* Hero image panel */
+.hero__img-panel {
+  position: relative;
   border-radius: var(--radius-lg);
-  padding: 36px 32px;
-  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,.5);
+  height: 100%;
+  min-height: 440px;
 }
-.hero__form-card h3 {
-  font-family: var(--ff-head);
-  font-size: 18px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: var(--text);
-  margin-bottom: 4px;
+.hero__img-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
-.hero__form-card p {
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 22px;
-}
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.form-row.single { grid-template-columns: 1fr; }
-.form-field {
+.hero__img-panel-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 18px 22px;
+  background: linear-gradient(to top, rgba(0,30,50,.92) 0%, transparent 100%);
   display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin-bottom: 12px;
+  align-items: center;
+  gap: 10px;
 }
-.form-field label {
+.hero__img-panel-bar span {
+  font-family: var(--ff-head);
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: .08em;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--muted);
-}
-.form-field input,
-.form-field select,
-.form-field textarea {
-  padding: 11px 14px;
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  font-family: var(--ff-body);
-  font-size: 14px;
-  color: var(--text);
-  background: var(--bg);
-  transition: border .2s;
-  outline: none;
-  width: 100%;
-}
-.form-field input:focus,
-.form-field select:focus,
-.form-field textarea:focus {
-  border-color: var(--blue);
-  background: var(--white);
-}
-.form-field textarea { resize: vertical; min-height: 80px; }
-.form-submit { width: 100%; justify-content: center; font-size: 16px; padding: 16px; margin-top: 4px; }
-.form-disclaimer {
-  text-align: center;
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 10px;
+  color: rgba(255,255,255,.85);
 }
 
 /* ─── 4. STATS BAR ──────────────────────────────── */
@@ -683,7 +653,16 @@ ul { list-style: none; }
 .service-card:hover .service-card__link { color: var(--red); gap: 8px; }
 .service-card__link::after { content: '→'; }
 
-/* Services grid is now a single 3-col grid for all 6 cards */
+/* Row 3: 4-col compact service cards */
+.services__more-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.services__more-grid .service-card__img { height: 160px; }
+.services__more-grid .service-card__body { padding: 20px 22px 24px; }
+.services__more-grid .service-card__title { font-size: 14px; }
+.services__more-grid .service-card__desc { font-size: 13px; }
 
 /* ─── 7. PROCESS ────────────────────────────────── */
 .process {
@@ -1788,6 +1767,7 @@ ul { list-style: none; }
   .hero__content { grid-template-columns: 1fr; gap: 40px; }
   .hero__form-card { max-width: 560px; }
   .services__grid { grid-template-columns: repeat(2, 1fr); }
+  .services__more-grid { grid-template-columns: repeat(2, 1fr); }
   .insurance__grid { grid-template-columns: repeat(4, 1fr); }
   .footer__grid { grid-template-columns: 1fr 1fr; gap: 36px; }
   .county-cities-grid { grid-template-columns: repeat(3, 1fr); }
@@ -1812,6 +1792,7 @@ ul { list-style: none; }
   .final-cta__phone-num { font-size: 30px; }
   .footer__grid { grid-template-columns: 1fr; }
   .services__grid { grid-template-columns: 1fr; }
+  .services__more-grid { grid-template-columns: 1fr; }
   .insurance__grid { grid-template-columns: repeat(3, 1fr); }
   .trust-strip__inner { justify-content: center; }
   .midcta__inner { flex-direction: column; text-align: center; }
@@ -1824,6 +1805,9 @@ ul { list-style: none; }
 
 @media (max-width: 480px) {
   .hero__ctas { flex-direction: column; }
+  .call-desktop { display: none; }
+  .call-mobile { display: block; }
+  .hero__img-panel { min-height: 280px; }
   .final-cta__actions { flex-direction: column; align-items: center; }
   .insurance__grid { grid-template-columns: repeat(2, 1fr); }
   .why__right { grid-template-columns: 1fr; }
@@ -1948,85 +1932,52 @@ ul { list-style: none; }
         Tampa's #1<br><em>Disaster Restoration</em><br>Company
       </h1>
       <p class="hero__sub">
-        Water damage, fire damage, mold, and large-loss commercial recovery — handled end-to-end by a disabled veteran-owned firm. On-site in 60 minutes or less, 24/7/365.
+        Turnkey loss response with integrated construction and roofing services — supporting stabilization through full reconstruction for commercial and residential properties.
       </p>
 
       <div class="hero__trust-pills">
         <div class="hero__pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          Contact Support 24/7
+        </div>
+        <div class="hero__pill">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-          IICRC Certified
+          Licensed, Certified &amp; Turnkey
         </div>
         <div class="hero__pill">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-          On-Site in 60 Min
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+          TPA-Aligned Vendor
         </div>
         <div class="hero__pill">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
-          Licensed & Insured
-        </div>
-        <div class="hero__pill">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-7 3c1.38 0 2.5 1.12 2.5 2.5S14.38 12 13 12s-2.5-1.12-2.5-2.5S11.62 7 13 7zM8 17v-.57c0-1.09.61-2.04 1.5-2.55.97.35 2 .54 3.05.54 1.05 0 2.08-.19 3.05-.54.89.51 1.5 1.46 1.5 2.55V17H8z"/></svg>
-          Works With All Insurance
-        </div>
-        <div class="hero__pill">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>
-          50+ Years Combined Exp.
-        </div>
-        <div class="hero__pill" style="border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.14)">
-          🇺🇸 Disabled Veteran Owned
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
+          Commercial &amp; Residential Losses
         </div>
       </div>
 
       <div class="hero__ctas">
-        <a href="tel:8663956625" class="btn btn-red btn-lg">
+        <a href="tel:8663956625" class="btn btn-red btn-lg hero__call-btn">
           <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-          Call (866) 395-6625
+          <span class="call-desktop">
+            <span class="call-num">(866) 395-6625</span>
+            <span class="call-sub">Call for 24/7 Service</span>
+          </span>
+          <span class="call-mobile">Tap to Call</span>
         </a>
-        <a href="#contact-form" class="btn btn-outline-white btn-lg">Get Free Assessment</a>
+        <a href="https://www.drycor.com/xl" class="btn btn-outline-white btn-lg">
+          Large Loss &amp; Commercial Inquiries
+        </a>
       </div>
     </div>
 
-    <div class="hero__form-card" id="contact-form">
-      <h3>Request Emergency Service</h3>
-      <p>Average response: under 30 minutes</p>
-
-      <div class="form-row">
-        <div class="form-field">
-          <label>First Name</label>
-          <input type="text" placeholder="John">
-        </div>
-        <div class="form-field">
-          <label>Last Name</label>
-          <input type="text" placeholder="Smith">
-        </div>
+    <!-- Hero right: Disaster Team On-Site image -->
+    <div class="hero__img-panel">
+      <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/DRYCOR+SVG+%28Disaster+Team+On-Site%29+1-1920w.webp" alt="DRYCOR RESTORE — Disaster Response Team On-Site">
+      <div class="hero__img-panel-bar">
+        <span class="pulse-dot" style="background:var(--teal);width:7px;height:7px"></span>
+        <span>DRYCOR RESTORE — Responding Now</span>
       </div>
-      <div class="form-field">
-        <label>Phone Number</label>
-        <input type="tel" placeholder="(813) 555-0100">
-      </div>
-      <div class="form-field">
-        <label>Service Needed</label>
-        <select>
-          <option value="">Select a service...</option>
-          <option>Water Damage Restoration</option>
-          <option>Fire &amp; Smoke Damage</option>
-          <option>Mold Remediation</option>
-          <option>Storm / Catastrophe Damage</option>
-          <option>Commercial / Large-Loss</option>
-          <option>Reconstruction</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="form-field form-row single">
-        <label>Brief Description</label>
-        <textarea placeholder="Tell us about the damage..."></textarea>
-      </div>
-      <button type="submit" class="btn btn-red form-submit">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
-        Send Request Now
-      </button>
-      <p class="form-disclaimer">🔒 100% confidential. No spam. We'll call within 30 min.</p>
     </div>
+
   </div>
 </section>
 
@@ -2118,89 +2069,140 @@ ul { list-style: none; }
 <section class="services">
   <div class="container">
     <div class="services__header">
-      <span class="section-label">What We Do</span>
-      <h2 class="section-title" style="font-size:clamp(28px,3.5vw,40px)">Full-Spectrum<br>Restoration Services</h2>
-      <p class="section-body" style="margin-top:14px">From emergency mitigation to full reconstruction — we handle every phase of disaster recovery for residential and commercial properties.</p>
+      <span class="section-label">Core Services</span>
+      <h2 class="section-title" style="font-size:clamp(28px,3.5vw,40px)">Full-Service Disaster Recovery<br>&amp; Construction</h2>
+      <p class="section-body" style="margin-top:14px">From emergency stabilization through complete reconstruction — one partner, every phase.</p>
     </div>
 
+    <!-- Row 1 -->
     <div class="services__grid">
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/Flood+Water+Extraction-5cc0a6d9-1920w.jpg" alt="Water Damage Restoration" loading="lazy">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/Powers+Kitchen+1+After-1920w.jpg" alt="Turnkey Restoration and Reconstruction" loading="lazy">
         </div>
         <div class="service-card__body">
-          <div class="service-card__icon">💧</div>
-          <div class="service-card__title">Water Damage Restoration</div>
-          <p class="service-card__desc">Burst pipes, flooding, appliance leaks, and storm water intrusion. We extract, dry, and restore — with full insurance coordination.</p>
-          <a href="/water-damage-restoration" class="service-card__link">Learn More</a>
+          <div class="service-card__icon">🔄</div>
+          <div class="service-card__title">Turnkey Restoration &amp; Reconstruction</div>
+          <p class="service-card__desc">End-to-end loss recovery with integrated construction services — from initial mitigation through full rebuild. One vendor, zero handoffs.</p>
+          <a href="/turnkey-restoration" class="service-card__link">Learn More</a>
         </div>
       </div>
 
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/firemen-at-work-near-their-truck-on-the-street-2025-04-01-13-22-37-utc+1-1920w.webp" alt="Fire Damage Restoration" loading="lazy">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/engineers-preparing-to-work-on-wind-turbine-2025-04-04-21-11-53-utc-1920w.jpg" alt="Large-Loss and Catastrophic Recovery" loading="lazy">
         </div>
         <div class="service-card__body">
-          <div class="service-card__icon">🔥</div>
-          <div class="service-card__title">Fire &amp; Smoke Damage</div>
-          <p class="service-card__desc">From initial board-up and stabilization through soot removal, odor elimination, contents restoration, and full rebuild.</p>
-          <a href="/fire-damage-restoration" class="service-card__link">Learn More</a>
+          <div class="service-card__icon">🏗️</div>
+          <div class="service-card__title">Large-Loss &amp; Catastrophic Recovery</div>
+          <p class="service-card__desc">Scalable response teams and structured oversight for complex, large-scale loss events — commercial, multifamily, industrial, and beyond.</p>
+          <a href="https://www.drycor.com/xl" class="service-card__link">Learn More</a>
         </div>
       </div>
 
       <div class="service-card">
         <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/scientist-wear-chemical-protection-suit-check-dang-2025-03-13-16-57-06-utc-1920w.JPG" alt="Mold Remediation" loading="lazy">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/JORDAN+Damage+After-1920w.jpg" alt="Commercial and Residential Reconstruction" loading="lazy">
         </div>
         <div class="service-card__body">
-          <div class="service-card__icon">🦠</div>
-          <div class="service-card__title">Mold Remediation</div>
-          <p class="service-card__desc">Certified inspection, containment, HEPA air filtration, and complete removal — including the moisture source causing growth.</p>
+          <div class="service-card__icon">🏠</div>
+          <div class="service-card__title">Commercial &amp; Residential Reconstruction</div>
+          <p class="service-card__desc">Full structural repair and property rebuild for both residential homes and commercial facilities — restored to pre-loss condition.</p>
+          <a href="/reconstruction" class="service-card__link">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="services__grid" style="margin-top:24px">
+      <div class="service-card">
+        <div class="service-card__img">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/an-engineer-in-safety-gear-inspects-a-drain-pipe-r-2025-09-08-10-50-58-utc+1-1920w.webp" alt="Building Consulting and Loss Coordination" loading="lazy">
+        </div>
+        <div class="service-card__body">
+          <div class="service-card__icon">📋</div>
+          <div class="service-card__title">Building Consulting &amp; Loss Coordination</div>
+          <p class="service-card__desc">Independent technical guidance and structured project management — aligning property owners, contractors, and project teams from assessment through closeout.</p>
+          <a href="/loss-coordination" class="service-card__link">Learn More</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card__img">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/Flood+Water+Extraction-5cc0a6d9-1920w.jpg" alt="Emergency Mitigation and Stabilization" loading="lazy">
+        </div>
+        <div class="service-card__body">
+          <div class="service-card__icon">⚡</div>
+          <div class="service-card__title">Emergency Mitigation &amp; Stabilization</div>
+          <p class="service-card__desc">Rapid-response extraction, structural drying, and containment — deployed immediately to stop further damage and stabilize the property.</p>
+          <a href="/emergency-services" class="service-card__link">Learn More</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card__img">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/DRYCOR+SVG+%28Disaster+Team+On-Site%29+1-1920w.webp" alt="Large-Scale Dehumidification and Climate Control" loading="lazy">
+        </div>
+        <div class="service-card__body">
+          <div class="service-card__icon">💨</div>
+          <div class="service-card__title">Large-Scale Dehumidification &amp; Climate Control</div>
+          <p class="service-card__desc">Industrial desiccant dehumidifiers, air movers, and climate systems deployed at scale — engineered drying for structures of any size.</p>
+          <a href="/dehumidification" class="service-card__link">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: compact 4-col -->
+    <div class="services__more-grid" style="margin-top:24px">
+      <div class="service-card">
+        <div class="service-card__img">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/Carbonell+Kitchen+3+Before-1920w.jpg" alt="Construction and Build-Back" loading="lazy">
+        </div>
+        <div class="service-card__body">
+          <div class="service-card__icon">🔨</div>
+          <div class="service-card__title">Construction &amp; Build-Back</div>
+          <p class="service-card__desc">Complete structural reconstruction following any loss event — drywall, flooring, roofing, and finish work.</p>
+          <a href="/construction-build-back" class="service-card__link">Learn More</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card__img">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/KARA+Damage+Image+%283%29-1920w.jpg" alt="Emergency Stabilization and Temporary Repairs" loading="lazy">
+        </div>
+        <div class="service-card__body">
+          <div class="service-card__icon">🛡️</div>
+          <div class="service-card__title">Emergency Stabilization &amp; Temporary Repairs</div>
+          <p class="service-card__desc">Board-up, roof tarping, shoring, and immediate protective measures to secure a property from further damage after a loss event.</p>
+          <a href="/emergency-stabilization" class="service-card__link">Learn More</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card__img">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/picture-768940715-1920w.jpg" alt="Contents and Asset Protection Services" loading="lazy">
+        </div>
+        <div class="service-card__body">
+          <div class="service-card__icon">📦</div>
+          <div class="service-card__title">Contents &amp; Asset Protection Services</div>
+          <p class="service-card__desc">Inventory, pack-out, cleaning, secure storage, and return of salvageable contents — protecting personal and business property throughout the restoration process.</p>
+          <a href="/contents-restoration" class="service-card__link">Learn More</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card__img">
+          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/scientist-wear-chemical-protection-suit-check-dang-2025-03-13-16-57-06-utc-1920w.JPG" alt="Environmental and Mold Services" loading="lazy">
+        </div>
+        <div class="service-card__body">
+          <div class="service-card__icon">🌿</div>
+          <div class="service-card__title">Environmental &amp; Mold Services</div>
+          <p class="service-card__desc">IICRC-certified mold inspection, containment, HEPA air filtration, and complete remediation — restoring safe, healthy indoor environments.</p>
           <a href="/mold-remediation" class="service-card__link">Learn More</a>
         </div>
       </div>
     </div>
 
-    <!-- Row 2: Full-card services -->
-    <div class="services__grid" style="margin-top:24px">
-
-      <div class="service-card">
-        <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/engineers-preparing-to-work-on-wind-turbine-2025-04-04-21-11-53-utc-1920w.jpg" alt="Commercial Large-Loss Restoration" loading="lazy">
-        </div>
-        <div class="service-card__body">
-          <div class="service-card__icon">🏢</div>
-          <div class="service-card__title">Commercial &amp; Large-Loss</div>
-          <p class="service-card__desc">Hotels, warehouses, multifamily, and industrial facilities. We scale fast with the crew capacity, equipment fleet, and TPA relationships to handle any size loss.</p>
-          <a href="/commercial-restoration" class="service-card__link">Learn More</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/DRYCOR+SVG+%28Disaster+Team+On-Site%29+1-1920w.webp" alt="Storm and Catastrophe Response" loading="lazy">
-        </div>
-        <div class="service-card__body">
-          <div class="service-card__icon">🌀</div>
-          <div class="service-card__title">Storm &amp; Catastrophe</div>
-          <p class="service-card__desc">Hurricane response, emergency roof tarping, flood recovery, and large-scale catastrophic loss stabilization — mobilized within hours of the event.</p>
-          <a href="/storm-damage" class="service-card__link">Learn More</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <div class="service-card__img">
-          <img src="https://lirp.cdn-website.com/5d5466ed/dms3rep/multi/opt/Powers+Kitchen+1+After-1920w.jpg" alt="Reconstruction and Build-Back" loading="lazy">
-        </div>
-        <div class="service-card__body">
-          <div class="service-card__icon">🔨</div>
-          <div class="service-card__title">Reconstruction &amp; Build-Back</div>
-          <p class="service-card__desc">Full structural repairs, drywall, flooring, cabinetry, and complete property rebuild — all performed in-house. One vendor from emergency through final walkthrough.</p>
-          <a href="/reconstruction" class="service-card__link">Learn More</a>
-        </div>
-      </div>
-
-    </div>
   </div>
 </section>
 
