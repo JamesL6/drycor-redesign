@@ -1317,9 +1317,132 @@ ul { list-style: none; }
 .service-areas__header {
   text-align: center;
   max-width: 620px;
-  margin: 0 auto 48px;
+  margin: 0 auto 36px;
 }
 .service-areas__header .section-title { font-size: clamp(26px, 3.5vw, 38px); margin-bottom: 14px; }
+/* Scope switcher tabs */
+.area-scope-tabs {
+  display: flex;
+  gap: 0;
+  background: var(--bg-alt);
+  border-radius: var(--radius-lg);
+  padding: 5px;
+  margin: 0 auto 36px;
+  width: fit-content;
+  border: 1.5px solid var(--border);
+}
+.area-scope-tab {
+  font-family: var(--ff-head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  padding: 12px 26px;
+  border-radius: calc(var(--radius-lg) - 5px);
+  cursor: pointer;
+  transition: all .22s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.area-scope-tab:hover { color: var(--blue); }
+.area-scope-tab.active {
+  background: var(--white);
+  color: var(--blue);
+  box-shadow: var(--shadow-sm);
+}
+.area-scope-tab .tab-icon { font-size: 15px; }
+.area-panel { display: none; }
+.area-panel.active { display: block; }
+/* US nationwide map */
+.us-map-wrap {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 420px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--border);
+}
+#us-map { width: 100%; height: 100%; }
+.us-map-badge {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--blue-deeper);
+  color: var(--white);
+  font-family: var(--ff-head);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 30px;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 750;
+}
+.us-map-badge span { color: var(--teal); }
+/* Nationwide stats strip */
+.nationwide-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.nationwide-stat {
+  background: var(--blue-deeper);
+  border-radius: var(--radius-lg);
+  padding: 24px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: background .2s;
+}
+.nationwide-stat:nth-child(odd) { background: var(--blue); }
+.nationwide-stat__icon { font-size: 24px; }
+.nationwide-stat__num {
+  font-family: var(--ff-head);
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--teal);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.nationwide-stat__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  text-align: center;
+}
+.commercial-cta-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: var(--bg-alt);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 28px;
+  flex-wrap: wrap;
+}
+.commercial-cta-strip p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 560px;
+}
+.commercial-cta-strip strong { color: var(--text); }
 
 /* Map */
 .areas-map-wrap {
@@ -1830,6 +1953,10 @@ ul { list-style: none; }
   .county-tabs { overflow-x: auto; }
   .county-cities-grid { grid-template-columns: repeat(2, 1fr); }
   .areas-map-wrap { height: 320px; }
+  .us-map-wrap { height: 300px; }
+  .nationwide-stats { grid-template-columns: repeat(2, 1fr); }
+  .area-scope-tabs { width: 100%; justify-content: center; }
+  .commercial-cta-strip { flex-direction: column; }
   .map-legend { display: none; }
 }
 
@@ -2409,7 +2536,7 @@ ul { list-style: none; }
 
     <div class="why__header">
       <span class="section-label">Why DRYCOR</span>
-      <h2 class="section-title">Trusted by Property Owners<br>&amp; Contractors Across Tampa Bay</h2>
+        <h2 class="section-title">Trusted by Property Owners<br>&amp; Contractors</h2>
       <p class="section-body" style="margin-top:12px">We've built our reputation by doing what others won't — delivering thorough documentation, standing behind every job, and treating every property like it's our own.</p>
     </div>
 
@@ -2668,9 +2795,22 @@ ul { list-style: none; }
   <div class="container">
     <div class="service-areas__header">
       <span class="section-label">Service Areas</span>
-      <h2 class="section-title">Serving the Greater Tampa Bay Area</h2>
-      <p class="section-body" style="margin-top:12px">Serving Hillsborough, Pasco, and Polk Counties — available 24/7 for emergency response across the greater Tampa Bay area.</p>
+      <h2 class="section-title">Our Coverage Areas</h2>
+      <p class="section-body" style="margin-top:12px">Residential emergency response across Tampa Bay — and nationwide large-loss commercial coverage through DRYCORXL.</p>
     </div>
+
+    <!-- Scope switcher -->
+    <div class="area-scope-tabs">
+      <button class="area-scope-tab active" onclick="switchAreaScope('residential', this)">
+        <span class="tab-icon">🏠</span> Residential — Tampa Bay
+      </button>
+      <button class="area-scope-tab" onclick="switchAreaScope('commercial', this)">
+        <span class="tab-icon">🏢</span> Commercial — Nationwide
+      </button>
+    </div>
+
+    <!-- ═══ RESIDENTIAL PANEL ═══ -->
+    <div class="area-panel active" id="panel-residential">
 
     <!-- Map with county outlines -->
     <div class="areas-map-wrap">
@@ -3035,6 +3175,57 @@ ul { list-style: none; }
       </div>
     </div>
 
+    </div><!-- /panel-residential -->
+
+    <!-- ═══ COMMERCIAL PANEL ═══ -->
+    <div class="area-panel" id="panel-commercial">
+
+      <!-- US nationwide Leaflet map -->
+      <div class="us-map-wrap">
+        <div id="us-map"></div>
+        <div class="us-map-badge">🌐 <span>Nationwide Coverage</span> — DRYCORXL Commercial Division</div>
+      </div>
+
+      <!-- Nationwide stats -->
+      <div class="nationwide-stats">
+        <div class="nationwide-stat">
+          <span class="nationwide-stat__icon">🇺🇸</span>
+          <div class="nationwide-stat__num">50</div>
+          <div class="nationwide-stat__label">States Covered</div>
+        </div>
+        <div class="nationwide-stat">
+          <span class="nationwide-stat__icon">⚡</span>
+          <div class="nationwide-stat__num">24/7</div>
+          <div class="nationwide-stat__label">Emergency Response</div>
+        </div>
+        <div class="nationwide-stat">
+          <span class="nationwide-stat__icon">🏗️</span>
+          <div class="nationwide-stat__num">Large</div>
+          <div class="nationwide-stat__label">Loss Specialists</div>
+        </div>
+        <div class="nationwide-stat">
+          <span class="nationwide-stat__icon">🤝</span>
+          <div class="nationwide-stat__num">TPA</div>
+          <div class="nationwide-stat__label">Aligned Vendor</div>
+        </div>
+      </div>
+
+      <!-- CTA strip -->
+      <div class="commercial-cta-strip">
+        <p><strong>DRYCORXL</strong> is our dedicated commercial and large-loss division — available nationwide for hotels, multifamily, industrial, healthcare, and any complex loss event that requires scalable response and structured oversight.</p>
+        <div style="display:flex;gap:12px;flex-shrink:0;flex-wrap:wrap">
+          <a href="https://www.drycorxl.com" target="_blank" class="btn btn-blue">
+            Visit DRYCORXL
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+          </a>
+          <a href="tel:8005726110" class="btn btn-outline-white" style="background:transparent;border:1.5px solid var(--border);color:var(--text)">
+            📞 (800) 572-6110
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /panel-commercial -->
+
   </div>
 </section>
 
@@ -3267,6 +3458,62 @@ function switchCounty(id, btn) {
   document.querySelectorAll('.county-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('county-' + id).classList.add('active');
   btn.classList.add('active');
+}
+
+// ── Area scope switcher (Residential / Commercial) ──
+let usMapInitialized = false;
+function switchAreaScope(scope, btn) {
+  document.querySelectorAll('.area-scope-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.area-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + scope).classList.add('active');
+  if (scope === 'commercial') {
+    if (!usMapInitialized) { initUSMap(); usMapInitialized = true; }
+    else if (window._usMap) setTimeout(() => window._usMap.invalidateSize(), 50);
+  }
+}
+
+function initUSMap() {
+  const mapEl = document.getElementById('us-map');
+  if (!mapEl || typeof L === 'undefined') return;
+  const map = L.map('us-map', {
+    center: [39.5, -98.35],
+    zoom: 4,
+    scrollWheelZoom: false,
+    zoomControl: true,
+    attributionControl: true
+  });
+  window._usMap = map;
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> &copy; <a href="https://carto.com">CARTO</a>',
+    subdomains: 'abcd', maxZoom: 19
+  }).addTo(map);
+  fetch('https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json')
+    .then(r => r.json())
+    .then(data => {
+      const geoLayer = L.geoJSON(data, {
+        style: { fillColor: '#006393', fillOpacity: 0.18, color: '#004d73', weight: 1.5, opacity: 0.8 },
+        onEachFeature: (feature, layer) => {
+          layer.bindTooltip(feature.properties.name, {
+            direction: 'center', sticky: true, className: 'county-label'
+          });
+          layer.on({
+            mouseover: e => e.target.setStyle({ fillOpacity: 0.34, weight: 2.5 }),
+            mouseout:  e => geoLayer.resetStyle(e.target)
+          });
+        }
+      }).addTo(map);
+      map.fitBounds(geoLayer.getBounds(), { padding: [16, 16] });
+    }).catch(() => {});
+  // DRYCORXL HQ marker
+  const hqIcon = L.divIcon({
+    className: '',
+    html: '<div class="drycor-marker-wrap"><div class="drycor-marker-dot" style="background:#E4002B"></div></div>',
+    iconSize: [20, 20], iconAnchor: [10, 10]
+  });
+  L.marker([28.068, -82.256], { icon: hqIcon })
+    .bindPopup('<div style="font-family:Montserrat,sans-serif;padding:4px 2px"><div style="font-size:13px;font-weight:800;color:#006393;text-transform:uppercase;letter-spacing:.05em">DRYCORXL HQ</div><div style="font-size:12px;color:#5a6e84;margin-top:3px">Thonotosassa, FL — Nationwide Operations</div><a href="https://www.drycorxl.com" target="_blank" style="display:block;margin-top:8px;font-size:13px;font-weight:700;color:#E4002B;font-family:Montserrat,sans-serif">Visit DRYCORXL →</a></div>', { maxWidth: 220 })
+    .addTo(map);
 }
 
 // Smooth header shadow on scroll
